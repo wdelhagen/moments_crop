@@ -69,8 +69,7 @@ window.onload = function () {
   var uploadedImageType = 'image/jpeg';
   var uploadedImageName = 'cropped.jpg';
   var uploadedImageURL;
-  var expansionFactorWidth = 0.12;
-  var expansionFactorHeight = 0.12;
+  var expansionFactor = 0.15;
 
   // Tooltip
   $('[data-toggle="tooltip"]').tooltip();
@@ -192,10 +191,11 @@ window.onload = function () {
         case 'getCroppedCanvas':
           var d = cropper.getCropBoxData();
           console.log(d.left, d.top, d.width, d.height);
-          d.width = d.width*(1 + expansionFactorWidth);
-          d.height = d.height*(1 + expansionFactorHeight);
-          d.left = d.left-d.width*expansionFactorWidth/2;
-          d.top = d.top-d.height*expansionFactorHeight/2;
+          d.width = d.width*(1 + expansionFactor);
+          d.height = d.height*(1 + expansionFactor);
+          d.left = d.left-d.width*expansionFactor/2;
+          d.top = d.top-d.height*expansionFactor/2;
+          console.log(d.left, d.top, d.width, d.height);
           cropper.setCropBoxData(d);
           try {
             data.option = JSON.parse(data.option);
