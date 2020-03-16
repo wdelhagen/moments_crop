@@ -40,7 +40,7 @@ window.onload = function () {
   var download = document.getElementById('download');
   var actions = document.getElementById('actions');
   var options = {
-    aspectRatio: 1.66964285,
+    aspectRatio: 1.5,
     preview: '.img-preview',
     ready: function (e) {
       console.log(e.type);
@@ -69,7 +69,7 @@ window.onload = function () {
   var uploadedImageType = 'image/jpeg';
   var uploadedImageName = 'cropped.jpg';
   var uploadedImageURL;
-  var expansionFactor = 0.15;
+  var expansionFactor = 0.1;
 
   // Tooltip
   $('[data-toggle="tooltip"]').tooltip();
