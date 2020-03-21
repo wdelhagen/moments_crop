@@ -20,8 +20,10 @@
       </div>
       <div class="col-md-4 alert alert-info">
         <h3 class="alert alert-warning">Preview</h3>
-        <div class="h-75">
-          <div class="img-preview preview-lg"></div>
+        <div class="h-75 preview-pane">
+          <div class="img-preview preview-lg" id="preview"></div>
+          <div class="stack-top" id="previewMask1"></div>
+          <div class="stack-top" id="previewMask2"></div>
         </div>
 
         <div class="docs-buttons row">
@@ -51,7 +53,7 @@
                 <!-- <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped Image</h5> -->
                 <h6 class="alert alert-warning">Crop area has been expanded to allow for trimming during production.</h6>
               </div>
-              <div class="modal-body"align="center"></div>
+              <div class="modal-body" align="center"></div>
               <div class="modal-footer">
                 <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

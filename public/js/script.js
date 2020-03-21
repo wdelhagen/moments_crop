@@ -33,6 +33,22 @@
 window.onload = function () {
   'use strict';
 
+  console.log($('#preview').width());
+  console.log($('#previewMask').width());
+  console.log($('#preview').height());
+  console.log($('#previewMask').height());
+
+  $('#preview').resize(function() {
+    console.log( "Handler for .change() called." );
+  });
+
+  var resizePreviewMask = function() {
+    $('#previewMask1').outerWidth($('#preview').width());
+    $('#previewMask1').outerHeight($('#preview').height());
+    $('#previewMask2').outerWidth($('#preview').width());
+    $('#previewMask2').outerHeight($('#preview').height());
+  };
+
   var Cropper = window.Cropper;
   var URL = window.URL || window.webkitURL;
   var container = document.querySelector('.img-container');
@@ -44,6 +60,7 @@ window.onload = function () {
     preview: '.img-preview',
     ready: function (e) {
       console.log(e.type);
+      resizePreviewMask();
     },
     cropstart: function (e) {
       console.log(e.type, e.detail.action);
@@ -124,6 +141,7 @@ window.onload = function () {
         options[target.name] = target.value;
         options.ready = function () {
           console.log('ready');
+          resizePreviewMask();
         };
       }
 
@@ -191,11 +209,11 @@ window.onload = function () {
         case 'getCroppedCanvas':
           var d = cropper.getCropBoxData();
           // console.log(d.left, d.top, d.width, d.height);
-          cropper.zoom(-0.06);
-          d.width = d.width*(1 + expansionFactor);
-          d.height = d.height*(1 + expansionFactor);
-          d.left = d.left-d.width*expansionFactor/2;
-          d.top = d.top-d.height*expansionFactor/2;
+          // cropper.zoom(-0.06);
+          // d.width = d.width*(1 + expansionFactor);
+          // d.height = d.height*(1 + expansionFactor);
+          // d.left = d.left-d.width*expansionFactor/2;
+          // d.top = d.top-d.height*expansionFactor/2;
           // console.log(d.left, d.top, d.width, d.height);
           // cropper.setCropBoxData(d);
           try {
@@ -236,7 +254,9 @@ window.onload = function () {
             $('#getCroppedCanvasModal').modal().find('.modal-body').html("<img src='" + result.toDataURL(uploadedImageType) + "' width=200>");
 
             if (!download.disabled) {
-              download.download = uploadedImageName;
+              // download.download = uploadedImageName;
+              console.log(uploadedImageType)
+              download.download = "MOMENTS_CARD.jpg";
               download.href = result.toDataURL(uploadedImageType);
             }
           }

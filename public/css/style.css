@@ -86,6 +86,26 @@ label.btn {
   overflow: hidden;
 }
 
+.preview-pane {
+  position: relative;
+}
+
+.stack-top{
+  z-index: 9;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#previewMask1{
+  border: 10.5px solid black; /* for demo purpose  */
+  border-radius: 20px;
+}
+
+#previewMask2{
+  border: 10px solid black; /* for demo purpose  */
+}
+
 .img-preview > img {
   max-width: 100%;
 }
@@ -187,4 +207,6 @@ label.btn {
 .docs-cropped .modal-body > img,
 .docs-cropped .modal-body > canvas {
   max-width: 100%;
+  border: 10.5px solid black; /* for demo purpose  */
+  border-radius: 20px;
 }
