@@ -130,9 +130,20 @@
 .cropper-point {
   display: block;
   height: 100%;
-  opacity: 0.1;
   position: absolute;
   width: 100%;
+}
+
+.cropper-face{
+  opacity: 0.1;
+}
+
+.cropper-line {
+  opacity: 0.6;
+}
+
+.cropper-point {
+  opacity: 1;
 }
 
 .cropper-face {
@@ -149,12 +160,12 @@
   cursor: ew-resize;
   right: -3px;
   top: 0;
-  width: 5px;
+  width: 20px;
 }
 
 .cropper-line.line-n {
   cursor: ns-resize;
-  height: 5px;
+  height: 20px;
   left: 0;
   top: -3px;
 }
@@ -163,21 +174,21 @@
   cursor: ew-resize;
   left: -3px;
   top: 0;
-  width: 5px;
+  width: 20px;
 }
 
 .cropper-line.line-s {
   bottom: -3px;
   cursor: ns-resize;
-  height: 5px;
+  height: 20px;
   left: 0;
 }
 
 .cropper-point {
   background-color: #39f;
-  height: 5px;
+  height: 10px;
   opacity: 0.75;
-  width: 5px;
+  width: 10px;
 }
 
 .cropper-point.point-e {
@@ -251,9 +262,9 @@
 
 @media (min-width: 1200px) {
   .cropper-point.point-se {
-    height: 5px;
+    height: 10px;
     opacity: 0.75;
-    width: 5px;
+    width: 10px;
   }
 }
 

@@ -80,7 +80,7 @@ label.btn {
 
 .img-preview {
   float: center;
-  margin: 1rem;
+  /* margin: 1rem; */
   /* margin-bottom: 0.5rem;
   margin-right: 0.5rem; */
   overflow: hidden;
