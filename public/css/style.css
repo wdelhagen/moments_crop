@@ -197,6 +197,24 @@ label.btn {
   display: block;
 }
 
+.download-container {
+  position: relative;
+}
+
+.download-stack-top{
+  z-index: 9;
+  position: absolute;
+  top: 0;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.download-fit-img {
+  opacity: 0.6;
+  width: 200px;
+}
+
 .docs-cropped .modal-body {
   text-align: center;
 }
@@ -204,6 +222,4 @@ label.btn {
 .docs-cropped .modal-body > img,
 .docs-cropped .modal-body > canvas {
   max-width: 100%;
-  border: 10.5px solid black; /* for demo purpose  */
-  border-radius: 20px;
 }

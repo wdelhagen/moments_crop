@@ -19,7 +19,9 @@
         </div>
       </div>
       <div class="col-md-4 alert alert-info">
-        <h3 class="alert alert-warning">Preview</h3>
+        <h6 class="alert alert-warning">
+          Gray border area will be trimmed during card production.
+        </h6>
         <div class="h-75 preview-pane">
           <div class="img-preview preview-lg" id="preview"></div>
           <!-- <div class="stack-top" id="previewMask1"></div>
@@ -39,10 +41,6 @@
             </button>
           </div>
         </div>
-
-
-
-
       </div>
     </div>
 
@@ -54,9 +52,14 @@
             <div class="modal-content">
               <div class="modal-header">
                 <!-- <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped Image</h5> -->
-                <h6 class="alert alert-warning">Crop area has been expanded to allow for trimming during production.</h6>
+                <!-- <h6 class="alert alert-warning">Crop area has been expanded to allow for trimming during production.</h6> -->
               </div>
-              <div class="modal-body" align="center"></div>
+              <div class="download-container">
+                <div class="modal-body" align="center"></div>
+                <div class="download-stack-top" align="center" id="downloadMask">
+                  <img class="download-fit-img" id="downloadMaskImg" src="img/print_mask_horizontal.png" >
+                </div>
+              </div>
               <div class="modal-footer">
                 <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -94,8 +97,6 @@
             </label>
           </div>
         </div><!-- /.docs-toggles -->
-
-
     </div>
   </div>
 </div>

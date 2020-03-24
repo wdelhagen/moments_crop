@@ -40,8 +40,11 @@ window.onload = function () {
     $('#previewMask').height($('#preview').height());
     if ($('#previewMask').width() > $('#previewMask').height()) {
       $('#previewMaskImg').attr("src","img/print_mask_horizontal.png");
+      $('#downloadMaskImg').attr("src","img/print_mask_horizontal.png");
+      
     } else {
       $('#previewMaskImg').attr("src","img/print_mask_vertical.png");
+      $('#downloadMaskImg').attr("src","img/print_mask_vertical.png");
     }
   };
 
