@@ -33,20 +33,16 @@
 window.onload = function () {
   'use strict';
 
-  console.log($('#preview').width());
-  console.log($('#previewMask').width());
-  console.log($('#preview').height());
-  console.log($('#previewMask').height());
-
-  $('#preview').resize(function() {
-    console.log( "Handler for .change() called." );
-  });
-
+  // Keep the div and image mask over the preview sized properly as the preview
+  // changes from horizontal to vertical
   var resizePreviewMask = function() {
-    $('#previewMask1').outerWidth($('#preview').width());
-    $('#previewMask1').outerHeight($('#preview').height());
-    $('#previewMask2').outerWidth($('#preview').width());
-    $('#previewMask2').outerHeight($('#preview').height());
+    $('#previewMask').width($('#preview').width());
+    $('#previewMask').height($('#preview').height());
+    if ($('#previewMask').width() > $('#previewMask').height()) {
+      $('#previewMaskImg').attr("src","img/print_mask_horizontal.png");
+    } else {
+      $('#previewMaskImg').attr("src","img/print_mask_vertical.png");
+    }
   };
 
   var Cropper = window.Cropper;
@@ -60,6 +56,7 @@ window.onload = function () {
     preview: '.img-preview',
     ready: function (e) {
       console.log(e.type);
+      // size the preview mask to fit in the preview div
       resizePreviewMask();
     },
     cropstart: function (e) {
@@ -141,6 +138,7 @@ window.onload = function () {
         options[target.name] = target.value;
         options.ready = function () {
           console.log('ready');
+          // resize the preview mask when we switch orientation
           resizePreviewMask();
         };
       }

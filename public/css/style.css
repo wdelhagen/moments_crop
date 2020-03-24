@@ -97,13 +97,10 @@ label.btn {
   left: 0;
 }
 
-#previewMask1{
-  border: 10.5px solid black; /* for demo purpose  */
-  border-radius: 20px;
-}
-
-#previewMask2{
-  border: 10px solid black; /* for demo purpose  */
+.fit-img {
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 0.6;
 }
 
 .img-preview > img {
