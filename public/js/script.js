@@ -209,14 +209,6 @@ window.onload = function() {
 
                 case 'getCroppedCanvas':
                     var d = cropper.getCropBoxData();
-                    // console.log(d.left, d.top, d.width, d.height);
-                    // cropper.zoom(-0.06);
-                    // d.width = d.width*(1 + expansionFactor);
-                    // d.height = d.height*(1 + expansionFactor);
-                    // d.left = d.left-d.width*expansionFactor/2;
-                    // d.top = d.top-d.height*expansionFactor/2;
-                    // console.log(d.left, d.top, d.width, d.height);
-                    // cropper.setCropBoxData(d);
                     try {
                         data.option = JSON.parse(data.option);
                     } catch (e) {
@@ -252,13 +244,14 @@ window.onload = function() {
                 case 'getCroppedCanvas':
                     if (result) {
                         // Bootstrap's Modal
-                        $('#getCroppedCanvasModal').modal().find('.modal-body').html("<img src='" + result.toDataURL(uploadedImageType) + "' width=200>");
+                        // $('#getCroppedCanvasModal').modal().find('.modal-body').html("<img src='" + result.toDataURL(uploadedImageType) + "' width=200>");
 
                         if (!download.disabled) {
                             // download.download = uploadedImageName;
                             console.log(uploadedImageType)
                             download.download = "MOMENTS_CARD.jpg";
                             download.href = result.toDataURL(uploadedImageType);
+                            download.click();
                         }
                     }
 
