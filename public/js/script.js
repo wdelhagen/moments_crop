@@ -247,9 +247,8 @@ window.onload = function() {
                         // $('#getCroppedCanvasModal').modal().find('.modal-body').html("<img src='" + result.toDataURL(uploadedImageType) + "' width=200>");
 
                         if (!download.disabled) {
-                            // download.download = uploadedImageName;
-                            console.log(uploadedImageType)
-                            download.download = "MOMENTS_CARD.jpg";
+                            download.download = uploadedImageName;
+                            // download.download = "MOMENTS_CARD.jpg";
                             download.href = result.toDataURL(uploadedImageType);
                             download.click();
                         }
