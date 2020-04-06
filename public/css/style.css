@@ -7,6 +7,14 @@ label.btn {
   margin-bottom: 0;
 }
 
+.page-header {
+  padding: 20px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+
 .d-flex > .btn {
   flex: 1;
 }
