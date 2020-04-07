@@ -79,7 +79,8 @@ window.onload = function() {
         zoom: function(e) {
             console.log(e.type, e.detail.ratio);
         },
-        viewMode: 0
+        viewMode: 0,
+        dragMode: 'move'
     };
     var cropper = new Cropper(image, options);
     var originalImageURL = image.src;
