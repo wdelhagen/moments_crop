@@ -18,25 +18,24 @@ const port = process.env.PORT || "8000";
  *  App Configuration
  */
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
+app.use('/', express.static('public'));
 app.use(express.static(path.join(__dirname, "public")));
-app.use('/assets', [
-    express.static(__dirname + '/node_modules/cropperjs/dist/'),
-    express.static(__dirname + '/node_modules/jquery-cropper/dist/')
-]);
+
+
+// app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "pug");
 
 /**
  * Routes Definitions
  */
 
-app.get("/", (req, res) => {
- res.render("index", { title: "Home" });
+app.get("/crop", (req, res) => {
+ res.sendFile(path.join(__dirname + '/public/html/crop.html'));
 });
 
-app.get("/crop", (req, res) => {
-  res.render("crop", { title: "Cropper", userProfile: { nickname: "Cropper" } });
-});
+// app.get("/crop", (req, res) => {
+//   res.render("crop", { title: "Cropper", userProfile: { nickname: "Cropper" } });
+// });
 
 /**
  * Server Activation

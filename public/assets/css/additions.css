@@ -1,0 +1,87 @@
+.section_heading {
+	font-size: 2em;
+	color: #3498db !important;
+  padding: 0 0 1em 0;
+}
+
+.emo {
+  margin-left: 40px;
+  margin-bottom: 20px;
+  width: 500px;
+}
+
+.emo_table {
+	font-size: 1em;
+  font-weight: bold;
+	color: #3498db !important;
+  text-align: center;
+}
+
+.preview_heading {
+	font-size: 1em;
+	color: #ff0000 !important;
+}
+
+.order_list {
+  color: #999999;
+  font-size:
+}
+
+.order_list_bullet {
+
+}
+
+ul.checklist {
+			list-style: none;
+			padding-left: 0;
+      font-size: 1.5em;
+      margin-top: 1.5em;
+		}
+
+    ul.checklist li:before {
+		color: #00BC8A;
+	}
+
+	ul.contact li:before {
+		color: #00BC8A;
+	}
+
+			ul.checklist li {
+				text-decoration: none;
+				margin-bottom: 1em;
+				padding-left: 0;
+			}
+
+				ul.checklist li:before {
+					-moz-osx-font-smoothing: grayscale;
+					-webkit-font-smoothing: antialiased;
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+          /* font-size: 3em; */
+					text-transform: none !important;
+				}
+
+				ul.checklist li:before {
+					content: '\f006';
+					margin-right: 0.75em;
+				}
+
+		ul.icons {
+			cursor: default;
+			list-style: none;
+			padding-left: 0;
+		}
+
+			ul.icons li {
+				display: inline-block;
+				padding: 0 1em 0 0;
+			}
+
+				ul.icons li:last-child {
+					padding-right: 0;
+				}
+
+				ul.icons li .icon:before {
+					font-size: 2em;
+				}
