@@ -20,12 +20,14 @@
     "kind-of": ">=6.0.3"
   },
   "dependencies": {
+    "acorn": ">=5.7.4",
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "jquery-cropper": "^1.0.1",
-    "pug": "^2.0.4",
+    "kind-of": ">=6.0.3",
     "minimist": ">=1.2.2",
-    "acorn": ">=5.7.4",
-    "kind-of": ">=6.0.3"
+    "pug": "^2.0.4",
+    "xmlhttprequest": "^1.8.0"
   },
   "engines": {
     "node": "13.8.0",
