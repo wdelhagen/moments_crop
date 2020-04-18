@@ -218,7 +218,7 @@
 
 /* Grid */
 
-	.row {
+	/* .row {
 		border-bottom: solid 1px transparent;
 		-moz-box-sizing: border-box;
 		-webkit-box-sizing: border-box;
@@ -1547,7 +1547,7 @@
 			margin-left: 8.33333%;
 		}
 
-	}
+	} */
 
 /* Basic */
 
@@ -1571,7 +1571,7 @@
 		background: #fff;
 	}
 
-		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
+		/* body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
 			-ms-animation: none !important;
@@ -1580,7 +1580,7 @@
 			-webkit-transition: none !important;
 			-ms-transition: none !important;
 			transition: none !important;
-		}
+		} */
 
 /* Type */
 
@@ -2074,7 +2074,7 @@
 				align-items: center;
 			}
 
-		.flex.flex-2 .col {
+		.flex.flex-2 {
 			width: 48%;
 		}
 
@@ -2100,25 +2100,25 @@
 
 			}
 
-		.flex.flex-3 .col {
+		.flex.flex-3 {
 			width: 28%;
 		}
 
 			@media screen and (max-width: 736px) {
 
-				.flex.flex-3 .col {
+				.flex.flex-3 {
 					width: 100%;
 					margin-bottom: 2em;
 				}
 
-					.flex.flex-3 .col .image2 {
+					.flex.flex-3 .image2 {
 						max-width: 60%;
 						margin: 0 auto 2em auto;
 					}
 
 			}
 
-		.flex.flex-4 .col {
+		.flex.flex-4 {
 			width: 22%;
 		}
 
@@ -2139,7 +2139,7 @@
 
 		@media screen and (max-width: 980px) {
 
-			.flex.flex-4 .col {
+			.flex.flex-4 {
 				width: 48%;
 			}
 
@@ -2151,7 +2151,7 @@
 				width: 67%;
 			}
 
-			.flex.flex-tabs .flex-3 .col {
+			.flex.flex-tabs .flex-3 {
 				width: 48%;
 			}
 
@@ -2159,7 +2159,7 @@
 
 		@media screen and (max-width: 736px) {
 
-			.flex.flex-2 .col, .flex.flex-3 .col, .flex.flex-4 .col {
+			.flex.flex-2 .col, .flex.flex-3 .col, .flex.flex-4 {
 				width: 100%;
 				-moz-order: 2;
 				-webkit-order: 2;
@@ -2189,7 +2189,7 @@
 					width: 100%;
 				}
 
-				.flex.flex-tabs .flex-3 .col {
+				.flex.flex-tabs .flex-3 {
 					width: 100%;
 				}
 
@@ -3156,7 +3156,6 @@
 				background-color: #fff;
 				color: #3498db !important;
 			}
-
 				.wrapper.style2 input[type="submit"].alt,
 				.wrapper.style2 input[type="reset"].alt,
 				.wrapper.style2 input[type="button"].alt,
@@ -3850,7 +3849,7 @@
 
 		}
 
-		body.is-loading #banner .inner {
+		/* body.is-loading #banner .inner {
 			-moz-transform: scale(0.99);
 			-webkit-transform: scale(0.99);
 			-ms-transform: scale(0.99);
@@ -3860,7 +3859,7 @@
 
 		body.is-loading #banner:before {
 			opacity: 1;
-		}
+		} */
 
 /* Footer */
 

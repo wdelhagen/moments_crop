@@ -7,9 +7,10 @@ window.onload = function() {
 
 
 function addPhoto(album, src) {
+  src += "=w2048";
   album.append(
-    `<div class="gphoto">
-      <img src=${src}>
+    `<div class="col-4 card_frame">
+      <img class="card_image" src="${src}">
     </div>`
   )
 }
@@ -20,8 +21,6 @@ function populateAlbum(result) {
   photos.forEach(function(item){
     addPhoto(album, item);
   })
-  $("#gphoto").attr("src", photos[0]);
-  console.log(result);
 }
 
 function getAlbumAjax(onSuccess){

@@ -4,9 +4,86 @@
   padding: 0 0 1em 0;
 }
 
-.gphoto {
-	max-width: 200px;
-	max-height: 200px;
+/* .responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px){
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  .responsive {
+    width: 100%;
+  }
+} */
+
+@media screen and (max-width: 1680px) {
+
+	.card_image {
+		max-height: 350px;
+	}
+
+}
+
+@media screen and (max-width: 1280px) {
+
+	.card_image {
+		max-height: 300px;
+	}
+
+}
+
+@media screen and (max-width: 980px) {
+
+	.card_image {
+		max-height: 250px;
+	}
+
+}
+
+@media screen and (max-width: 736px) {
+
+	.card_image {
+		max-height: 200px;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+	.card_image {
+		max-height: 200px;
+	}
+
+}
+
+
+.card_image {
+	max-width: 100%;
+	height: auto;
+	border-radius: 15px;
+	border: 1px solid #000000;
+	box-shadow: 1px 1px #888888;
+}
+
+#album {
+	background: #ffffff;
+}
+
+.card_frame {
+	/* background: #ffffff; */
+	display: flex;
+	align-items: center;
+  justify-content: center;
+	padding: 2%;
+	/* border: thick solid #3498db;
+	box-shadow: 2px 2px #888888; */
 }
 
 .emo {
