@@ -1,9 +1,8 @@
 window.onload = function() {
     'use strict';
-
-
 }
 
+const albumAPI = "/album/"
 const regex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)/i;
 const test_link = "https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9";
 
@@ -86,8 +85,9 @@ $("#loadAlbum").click(function() {
   var link = $("#albumLink").val();
   var result = link.match(regex);
   if (result) {
+    $("#album").empty();
     const key = result[1];
-    url = "/album/" + key;
+    url = albumAPI + key;
     getAlbumAjax(url, populateAlbum);
   } else {
     alert("Unable to find Google Photos album from that link. Please check it and try again.")
