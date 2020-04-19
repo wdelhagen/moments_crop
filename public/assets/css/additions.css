@@ -26,7 +26,7 @@
 @media screen and (max-width: 1680px) {
 
 	.card_image {
-		max-height: 350px;
+		max-height: 400px;
 	}
 
 }
@@ -34,7 +34,7 @@
 @media screen and (max-width: 1280px) {
 
 	.card_image {
-		max-height: 300px;
+		max-height: 350px;
 	}
 
 }
@@ -42,7 +42,7 @@
 @media screen and (max-width: 980px) {
 
 	.card_image {
-		max-height: 250px;
+		max-height: 300px;
 	}
 
 }
@@ -50,7 +50,7 @@
 @media screen and (max-width: 736px) {
 
 	.card_image {
-		max-height: 200px;
+		max-height: 250px;
 	}
 
 }
@@ -63,17 +63,40 @@
 
 }
 
+#album {
+	background: #808080;
+	border-radius: 5px;
+	padding: 2%;
+	margin: 0;
+}
+
+/* #test {
+	background: #ffffff;
+	border-radius: 5px;
+	margin-left: 1%;
+	margin-right: 1%;
+} */
+
+.card_stack_img {
+  width: 100%;
+	height: auto;
+  opacity: 1;
+	z-index: 9;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 .card_image {
 	max-width: 100%;
-	height: auto;
-	border-radius: 15px;
+	/* border-radius: 5%;
 	border: 1px solid #000000;
-	box-shadow: 1px 1px #888888;
+	box-shadow: 1px 1px #888888; */
 }
 
-#album {
-	background: #ffffff;
+.image_frame {
+	padding: 0;
+	position: relative;
 }
 
 .card_frame {
@@ -81,10 +104,12 @@
 	display: flex;
 	align-items: center;
   justify-content: center;
-	padding: 2%;
+	padding: 0;
+	/* padding: 1%; */
 	/* border: thick solid #3498db;
 	box-shadow: 2px 2px #888888; */
 }
+
 
 .emo {
   margin-left: 40px;
