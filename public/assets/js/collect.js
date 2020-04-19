@@ -1,18 +1,20 @@
 window.onload = function() {
     'use strict';
+
+    getAlbumAjax("/album/"+"Mv46AWp44zd8QTLs9", populateAlbum);
 }
 
 const albumAPI = "/album/"
 const regex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)/i;
 const test_link = "https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9";
+const test_uncropped_link = "https://photos.app.goo.gl/Mv46AWp44zd8QTLs9"
 
 function addFrames() {
-  $(".image_frame").each(function () {
-    if ($(this).width() > $(this).height()) {
-      $(this).append(`<img class="card_stack_img" src="assets/img/print_mask_horizontal.png" >`);
-    } else {
-      $(this).append(`<img class="card_stack_img" src="assets/img/print_mask_vertical.png" >`);
-    }
+  $(".image_frame_horizontal").each(function () {
+    $(this).append(`<img class="card_stack_img_horizontal" src="assets/img/print_mask_horizontal.png" >`);
+  });
+  $(".image_frame_vertical").each(function () {
+    $(this).append(`<img class="card_stack_img_vertical" src="assets/img/print_mask_vertical.png" >`);
   });
 }
 
@@ -26,30 +28,40 @@ function checkImages(photos, imgMeta) {
 
 }
 
-function addPhoto(album, src) {
+function addPhoto(album, orientation, src) {
   src += "=w2048";
-  album.append(
-     `<div class="col-4 card_frame">
-        <div class="image_frame">
-          <img class="card_image" src="${src}">
-        </div>
-      </div>`
-  );
+  if (orientation == "vertical") {
+    album.append(
+       `<div class="col-3 card_frame_${orientation}">
+          <div class="image_frame_${orientation}">
+            <img class="card_image_${orientation}" src="${src}">
+          </div>
+        </div>`
+    );
+  } else {
+    album.append(
+       `<div class="col-4 card_frame_${orientation}">
+          <div class="image_frame_${orientation}">
+            <img class="card_image_${orientation}" src="${src}">
+          </div>
+        </div>`
+    );
+  };
 }
 
 function populateImages(imgStore) {
   album = $("#album");
   for (const key in imgStore) {
     if (imgStore[key].ratio >= 1) {
-      addPhoto(album, key);
+      addPhoto(album, "horizontal", key);
     };
   }
   for (const key in imgStore) {
     if (imgStore[key].ratio < 1) {
-      addPhoto(album, key);
+      addPhoto(album, "vertical", key);
     };
   }
-  addFrames();
+  setTimeout(function(){ addFrames(); }, 500);
 }
 
 function populateAlbum(result) {
