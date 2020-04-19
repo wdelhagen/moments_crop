@@ -1,7 +1,8 @@
 window.onload = function() {
     'use strict';
 
-    getAlbumAjax("/album/"+"Mv46AWp44zd8QTLs9", populateAlbum);
+    // test with big uncropped album
+    // getAlbumAjax("/album/"+"Mv46AWp44zd8QTLs9", populateAlbum);
 }
 
 const albumAPI = "/album/"
