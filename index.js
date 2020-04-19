@@ -10,6 +10,8 @@ const path = require("path");
 const axios = require('axios');
 
 const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
+// const regex_photo = /(https:\/\/photos\.google\.com\/share\/.*\/key=[a-zA-Z0-9\-_]*)/g
+const regex_photo = /(\/\.share)/g
 
 function extractPhotos(content) {
  const links = new Set()
