@@ -77,7 +77,7 @@ function addPhoto(album, src, obj) {
     cropError = Math.abs(ratio - 1.5);
     orientation = "horizontal";
   } else {
-    cropError = Math.abs(ratio - 1/3);
+    cropError = Math.abs(ratio - 2/3);
     orientation = "vertical";
   }
   if (isCrop && cropError > 0.1) {
@@ -122,7 +122,7 @@ function populateAlbum(result) {
   var photos = result;
   var imgStore = new Object();
   var imgCount = 0;
-
+  album.empty();
   photos.forEach(function(item){
     var img = new Image();
     img.src = item;
@@ -151,7 +151,6 @@ function loadAlbum(link) {
   var result = link.match(regex);
   if (result) {
     document.cookie = "album="+link;
-    album.empty();
     const key = result[1];
     url = albumAPI + key;
     getAlbumAjax(url, populateAlbum);

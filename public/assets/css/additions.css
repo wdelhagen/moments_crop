@@ -123,35 +123,35 @@
 
 
 .card_image_horizontal {
-	max-height: 400px;
-	max-width: 600px;
+	max-height: 350px;
+	width: 525px;
 }
 
 .card_image_vertical {
-	max-width: 400px;
-	max-height: 600px;
+	max-width: 350px;
+	height: 525px;
 }
 
 .image_frame_horizontal {
-	height: 400px;
-	width: 600px;
+	height: 350px;
+	width: 525px;
 }
 
 .image_frame_vertical {
-	width: 400px;
-	height: 600px;
+	width: 350px;
+	height: 525px;
 }
 
 @media screen and (max-width: 1680px) {
 
 	.card_image_horizontal {
 		max-height: 270px;
-		max-width: 405px;
+		width: 405px;
 	}
 
 	.card_image_vertical {
 		max-width: 270px;
-		max-height: 405px;
+		height: 405px;
 	}
 
 	.image_frame_horizontal {
@@ -171,12 +171,12 @@
 
 	.card_image_horizontal {
 		max-height: 240px;
-		max-width: 360px;
+		width: 360px;
 	}
 
 	.card_image_vertical {
 		max-width: 240px;
-		max-height: 360px;
+		height: 360px;
 	}
 
 	.image_frame_horizontal {
@@ -195,12 +195,12 @@
 
 	.card_image_horizontal {
 		max-height: 205px;
-		max-width: 310px;
+		width: 310px;
 	}
 
 	.card_image_vertical {
 		max-width: 205px;
-		max-height: 310px;
+		height: 310px;
 	}
 
 	.image_frame_horizontal {
@@ -220,12 +220,12 @@
 
 	.card_image_horizontal {
 		max-height: 150px;
-		max-width: 230px;
+		width: 230px;
 	}
 
 	.card_image_vertical {
 		max-width: 150px;
-		max-height: 230px;
+		height: 230px;
 	}
 
 	.image_frame_horizontal {
@@ -244,12 +244,12 @@
 
 	.card_image_horizontal {
 		max-height: 100px;
-		max-width: 150px;
+		width: 150px;
 	}
 
 	.card_image_vertical {
 		max-width: 100px;
-		max-height: 150px;
+		height: 150px;
 	}
 
 	.image_frame_horizontal {
@@ -268,12 +268,12 @@
 
 	.card_image_horizontal {
 		max-height: 80px;
-		max-width: 120px;
+		width: 120px;
 	}
 
 	.card_image_vertical {
 		max-width: 80px;
-		max-height: 120px;
+		height: 120px;
 	}
 
 	.image_frame_horizontal {
@@ -289,7 +289,7 @@
 }
 
 .album {
-	background: #A9A9A9;
+	background: #D3D3D3;
 	border-radius: 5px;
 	padding: 2%;
 	margin: 0;
@@ -303,7 +303,7 @@
 } */
 
 .card_stack_img_vertical {
-	max-height: 100%;
+	height: 100%;
 	width: 100%;
   opacity: 1;
 	z-index: 9;
