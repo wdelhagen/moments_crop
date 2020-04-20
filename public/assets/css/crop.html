@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<!--
+	Urban by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>MOMENTS: CROP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/additions.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="assets/css/cropper.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+	</head>
+	<body>
+
+		<!-- Header -->
+		<header id="header">
+			<div class="logo"><a href="index.html" class="icon fa-heart">&nbsp; MOMENTS</a></div>
+		</header>
+		<!-- <div class="logo"><a href="index.html" class="icon fa-heart stages_logo">&nbsp; MOMENTS</a></div> -->
+
+		<!-- Nav -->
+
+			<section class="style1 stage_path">
+        <div class="inner">
+          <div class="d-flex justify-content-center">
+            <div class="stage_image inactive">
+              <div class="image2 round fit stage_image">
+                <a href="collect.html" class="link"><img src="assets/img/collect.jpg" alt="" /></a>
+              </div>
+            </div>
+            <div class="stage_text">
+              <a href="collect.html" class="">COLLECT</a>
+            </div>
+            <div class="stage_arrow">
+              <i class="fa fa-angle-right"></i>
+            </div>
+            <div class="stage_image current">
+              <div class="image2 round fit stage_image">
+                <img src="assets/img/crop.jpg" alt="" />
+              </div>
+            </div>
+            <div class="stage_text current">
+              CROP
+            </div>
+            <div class="stage_arrow">
+              <a href="order.html"><i class="current fa fa-angle-right"></i></a>
+            </div>
+            <div class="stage_image inactive">
+              <div class="image2 round fit stage_image">
+                <a href="order.html" class="link"><img src="assets/img/order.jpg" alt="" /></a>
+              </div>
+            </div>
+            <div class="stage_text">
+              <a href="order.html">ORDER</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section -->
+      <div id="crop">
+        <section class="wrapper style2 noheader">
+          <div class="inner">
+						<!-- <div class="row justify-content-end">
+							<div class="col-md-3">
+								<a href="order.html" align="right" class="btn btn-warning">
+									Next step <i class="fa fa-angle-right"></i>
+								</a>
+							</div>
+						</div> -->
+            <!-- Content -->
+						<div class="row">
+							<div class="col-md-7">
+								<h2>Crop: Trim your images to fit on cards</h2>
+								<ul class="checklist">
+									<li>Use this custom tool to get a precise crop</li>
+									<li>Or use any photo editor -- 3:2 ratio, horizontal or vertical</li>
+								</ul>
+							</div>
+							<div class="col-md-5">
+									<img class="crop_gif" src="assets/img/quick_crop.gif">
+							</div>
+						</div>
+              <div class="cropper_container" id="actions">
+
+                <!-- <div class=""> -->
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="img-container">
+                        <img src="assets/img/instructions.jpg" alt="Picture" height="500">
+                      </div>
+                    </div>
+                    <div class="col-4 preview_column">
+                      <h4 class="preview_heading">
+                        Black border area will be trimmed during production.
+                      </h4>
+                      <div class="h-75 preview-pane">
+                        <div class="img-preview preview-lg" id="preview"></div>
+                        <!-- <div class="stack-top" id="previewMask1"></div>
+                        <div class="stack-top" id="previewMask2"></div> -->
+                        <div class="stack-top" id="previewMask">
+                          <img class="fit-img" id="previewMaskImg" src="assets/img/print_mask_horizontal.png" >
+                        </div>
+                      </div>
+
+                      <!-- <div class="docs-buttons row">
+                        OLD spot for download button
+                      </div> -->
+                    </div>
+                  </div>
+
+
+                <div>
+                  <div class="row docs-buttons">
+                    <!-- Deprecated: Show the cropped image in modal -->
+                    <!-- Now we just use the <a> tag here to download the image -->
+                    <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <!-- <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped Image</h5> -->
+                            <!-- <h6 class="alert alert-warning">Crop area has been expanded to allow for trimming during production.</h6> -->
+                          </div>
+                          <div class="download-container">
+                            <div class="modal-body" align="center"></div>
+                            <div class="download-stack-top" align="center" id="downloadMask">
+                              <img class="download-fit-img" id="downloadMaskImg" src="assets/img/print_mask_horizontal.png" >
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- /.modal -->
+
+                    <div class="col-md-4" align="left">
+
+                      <label class="btn btn-success btn-upload" for="inputImage" title="Upload image file">
+                        <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="Upload new image to crop">
+                          <span class="fa fa-upload"></span>
+                          Upload New Image
+                        </span>
+                      </label>
+
+                    </div>
+
+                    <div class="docs-toggles col-md-4" align="right">
+                      <!-- <h3>Toggles:</h3> -->
+                      <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                          <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.5">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="Horizontal (Landscape) Orientation">
+                            Horizontal
+                          </span>
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="0.67">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="Vertical (Portrait) Orientation">
+                            Vertical
+                          </span>
+                        </label>
+                      </div>
+                    </div><!-- /.docs-toggles -->
+
+                    <div class="col-md-4" align="right">
+                      <div class="btn-group-crop">
+                        <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
+                          <span class="docs-tooltip" data-toggle="tooltip" title="Download the cropped version of the image">
+                            <span class="fa fa-download"></span>
+                            Download Cropped Image
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                </div>
+              <!-- </div> -->
+            </div>
+            </div>
+						<div class="row next_row"></div>
+						<div class="row next_row">
+							<div class="col-md-12">
+								<h4><i class="fa fa-folder" aria-hidden="true"></i> Save the cropped images in a new folder on your computer</h4>
+								<ul class="checklist">
+									<li>Add your 9 cropped images to a shared album on
+										<a href="https://photos.google.com" target="_blank">
+											Google Photos
+										</a>
+										or other photo sharing service.</li>
+									<li>Get a link to the shared album.
+										(
+										<a href="https://support.google.com/photos/answer/6131416#send_linkweb" target="_blank">
+											Google Photos instructions
+										</a>
+										)
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row next_row">
+							<div class="col-4"></div>
+							<div class="col-8 align-self-end">
+								<a href="order.html" class="btn btn-lg btn-block btn-warning get_started"><i class="fa fa-folder" aria-hidden="true"></i> I have my cropped images in a shared album. I'm ready to order. &nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							</div>
+						</div>
+          </div>
+				</section>
+			</div>
+
+
+
+      <!-- Footer -->
+        <footer id="footer">
+          <div class="copyright">
+            <ul class="icons">
+              <li><a href="mailto:will@moments.cards" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+              <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            </ul>
+            <p>&copy; MOMENTS. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+          </div>
+        </footer>
+
+      <!-- Scripts -->
+        <script src="assets/js/cropper.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/jquery.scrollex.min.js"></script>
+        <script src="assets/js/skel.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/script.js"></script>
+
+    </body>
+  </html>

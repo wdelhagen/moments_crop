@@ -65,25 +65,24 @@ app.use(function(req, res, next) {
  * Routes Definitions
  */
 
- function getCORS(url, success) {
-     var xhr = new XMLHttpRequest();
-     if (!('withCredentials' in xhr)) xhr = new XDomainRequest(); // fix IE8/9
-     xhr.open('GET', url);
-     xhr.onload = success;
-     xhr.send();
-     return xhr;
- }
+ app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/assets/html/index.html'));
+ });
 
-app.get("/crop", (req, res) => {
- res.sendFile(path.join(__dirname + '/public/html/crop.html'));
+app.get("/cropper", (req, res) => {
+ res.sendFile(path.join(__dirname + '/public/assets/html/cropper.html'));
 });
 
-app.get("/album", (req, res) => {
-  response = getCORS('https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9', function(request){
-      var response = request.currentTarget.response || request.target.responseText;
-      return response;
-  });
-  res.send(response);
+app.get("/collect", (req, res) => {
+ res.sendFile(path.join(__dirname + '/public/assets/html/collect.html'));
+});
+
+app.get("/crop", (req, res) => {
+ res.sendFile(path.join(__dirname + '/public/assets/html/crop.html'));
+});
+
+app.get("/order", (req, res) => {
+ res.sendFile(path.join(__dirname + '/public/assets/html/order.html'));
 });
 
 app.get('/album/:id', async function(request, response) {
@@ -95,6 +94,15 @@ app.get('/album/:id', async function(request, response) {
     response.status(500)
   }
 });
+
+
+// app.get("/album", (req, res) => {
+//   response = getCORS('https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9', function(request){
+//       var response = request.currentTarget.response || request.target.responseText;
+//       return response;
+//   });
+//   res.send(response);
+// });
 
 // app.get("/crop", (req, res) => {
 //   res.render("crop", { title: "Cropper", userProfile: { nickname: "Cropper" } });
