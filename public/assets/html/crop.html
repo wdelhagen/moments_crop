@@ -85,138 +85,43 @@
 							<div class="col-md-7">
 								<h2>Crop: Trim your images to fit on cards</h2>
 								<ul class="checklist">
-									<li>Use this custom tool to get a precise crop</li>
-									<li>Or use any photo editor -- 3:2 ratio, horizontal or vertical</li>
+									<li>In Google Photos use 3:2 ratio, portrait (vertical) or landscape (horizontal)</li>
+									<li>Load your album below to check your crops. There will be a RED box around any images that still need cropping.</li>
 								</ul>
 							</div>
-							<div class="col-md-5">
+							<!-- <div class="col-md-5">
 									<img class="crop_gif" src="assets/img/quick_crop.gif">
-							</div>
+							</div> -->
 						</div>
-              <div class="cropper_container" id="actions">
+					</div>
+				</section>
 
-                <!-- <div class=""> -->
-                  <div class="row">
-                    <div class="col-8">
-                      <div class="img-container">
-                        <img src="assets/img/instructions.jpg" alt="Picture" height="500">
-                      </div>
-                    </div>
-                    <div class="col-4 preview_column">
-                      <h4 class="preview_heading">
-                        Black border area will be trimmed during production.
-                      </h4>
-                      <div class="h-75 preview-pane">
-                        <div class="img-preview preview-lg" id="preview"></div>
-                        <!-- <div class="stack-top" id="previewMask1"></div>
-                        <div class="stack-top" id="previewMask2"></div> -->
-                        <div class="stack-top" id="previewMask">
-                          <img class="fit-img" id="previewMaskImg" src="assets/img/print_mask_horizontal.png" >
-                        </div>
-                      </div>
-
-                      <!-- <div class="docs-buttons row">
-                        OLD spot for download button
-                      </div> -->
-                    </div>
-                  </div>
+				<section class="wrapper style2 noheader">
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-8">
+							<h4>Enter a link to your shared Google Photos album</h4>
+							<input type="text" id="albumLink" value="https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9">
+							<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">Load or Refresh Album</a>
+						</div>
+					</div>
+					<div id="crop_album" class="row album">
+					</div>
+				</section>
 
 
-                <div>
-                  <div class="row docs-buttons">
-                    <!-- Deprecated: Show the cropped image in modal -->
-                    <!-- Now we just use the <a> tag here to download the image -->
-                    <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                          </div>
-                          <div class="download-container">
-                            <div class="modal-body" align="center"></div>
-                            <div class="download-stack-top" align="center" id="downloadMask">
-                              <img class="download-fit-img" id="downloadMaskImg" src="assets/img/print_mask_horizontal.png" >
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4" align="left">
-
-                      <label class="btn btn-success btn-upload" for="inputImage" title="Upload image file">
-                        <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-                        <span class="docs-tooltip" data-toggle="tooltip" title="Upload new image to crop">
-                          <span class="fa fa-upload"></span>
-                          Upload New Image
-                        </span>
-                      </label>
-
-                    </div>
-
-                    <div class="docs-toggles col-md-4" align="right">
-
-                      <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
-                        <label class="btn btn-primary active">
-                          <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.5">
-                          <span class="docs-tooltip" data-toggle="tooltip" title="Horizontal (Landscape) Orientation">
-                            Horizontal
-                          </span>
-                        </label>
-                        <label class="btn btn-primary">
-                          <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="0.67">
-                          <span class="docs-tooltip" data-toggle="tooltip" title="Vertical (Portrait) Orientation">
-                            Vertical
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4" align="right">
-                      <div class="btn-group-crop">
-                        <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
-                          <span class="docs-tooltip" data-toggle="tooltip" title="Download the cropped version of the image">
-                            <span class="fa fa-download"></span>
-                            Download Cropped Image
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                </div>
-
-            	</div>
-            </div>
-
-
-
-
+				<section class="wrapper style2 noheader">
+					<div class="inner">
 						<div class="row next_row"></div>
 						<div class="row next_row">
 							<div class="col-md-12">
-								<h4><i class="fa fa-folder" aria-hidden="true"></i> Save the cropped images in a new folder on your computer</h4>
-								<ul class="checklist">
-									<li>Add your 9 cropped images to a shared album on
-										<a href="https://photos.google.com" target="_blank">
-											Google Photos
-										</a>
-										or other photo sharing service.</li>
-									<li>Get a link to the shared album.
-										(
-										<a href="https://support.google.com/photos/answer/6131416#send_linkweb" target="_blank">
-											Google Photos instructions
-										</a>
-										)
-									</li>
-								</ul>
+								<h4><i class="fa fa-check-square" aria-hidden="true"></i> When all your photos are cropped, you're ready to order!</h4>
 							</div>
 						</div>
 						<div class="row next_row">
 							<div class="col-4"></div>
 							<div class="col-8 align-self-end">
-								<a href="/order" class="btn btn-lg btn-block btn-warning get_started"><i class="fa fa-folder" aria-hidden="true"></i> I have my cropped images in a shared album. I'm ready to order. &nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+								<a href="/order" class="btn btn-lg btn-block btn-warning get_started"> I have a shared album with all of my images cropped. I'm ready to order! &nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a>
 							</div>
 						</div>
           </div>
@@ -243,7 +148,8 @@
         <script src="assets/js/skel.min.js"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
-        <script src="assets/js/script.js"></script>
+				<script src="assets/js/album.js"></script>
+        <!-- <script src="assets/js/script.js"></script> -->
 
     </body>
   </html>

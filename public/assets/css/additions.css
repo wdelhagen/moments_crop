@@ -288,7 +288,7 @@
 
 }
 
-#album {
+.album {
 	background: #A9A9A9;
 	border-radius: 5px;
 	padding: 2%;
@@ -320,6 +320,10 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.needsCrop {
+	border: thick solid red;
 }
 
 /* .card_image_horizontal {
