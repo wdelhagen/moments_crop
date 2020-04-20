@@ -120,6 +120,31 @@
   }
 } */
 
+@media screen and (max-width: 4000px) {
+
+	.card_image_horizontal {
+		max-height: 400px;
+		max-width: 600px;
+	}
+
+	.card_image_vertical {
+		max-width: 400px;
+		max-height: 600px;
+	}
+
+	.image_frame_horizontal {
+		height: 400px;
+		width: 600px;
+	}
+
+	.image_frame_vertical {
+		width: 400px;
+		height: 600px;
+	}
+
+
+}
+
 @media screen and (max-width: 1680px) {
 
 	.card_image_horizontal {
