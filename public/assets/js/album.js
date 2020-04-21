@@ -16,13 +16,19 @@ window.onload = function() {
 
 }
 
-const albumAPI = "/album/"
+// https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
+
+// const albumAPI = "/album/"
+const albumAPI = "/icloudalbum/"
 const regex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)/i;
+const icloudregex = /https:\/\/www\.icloud\.com\/sharedalbum\/#([a-zA-Z0-9\-_]*)/i;
 const test_link = "https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9";
 const test_uncropped_link = "https://photos.app.goo.gl/Mv46AWp44zd8QTLs9"
 
 var album;
 var isCrop = false;
+
+var icloudphoto;
 
 function loadAlbumFromCookie() {
   var cookieAlbum = getCookie("album");
@@ -61,10 +67,6 @@ function getMeta(url, callback) {
     var img = new Image();
     img.src = url;
     img.onload = function() { callback(this.width, this.height); }
-}
-
-function checkImages(photos, imgMeta) {
-
 }
 
 function addPhoto(album, src, obj) {
@@ -106,6 +108,9 @@ function addPhoto(album, src, obj) {
 
 function populateImages(imgStore) {
   for (const key in imgStore) {
+    // temp
+    tryiCloudImage (key);
+    // temp
     if (imgStore[key].ratio >= 1) {
       addPhoto(album, key, imgStore[key]);
     };
@@ -126,6 +131,7 @@ function populateAlbum(result) {
   photos.forEach(function(item){
     var img = new Image();
     img.src = item;
+    album.append(img)
     imgStore[item] = {"img" : img}
     img.onload = function () {
       imgStore[this.src] = {"ratio" : this.width / this.height};
@@ -148,7 +154,7 @@ function getAlbumAjax(url, onSuccess){
 }
 
 function loadAlbum(link) {
-  var result = link.match(regex);
+  var result = link.match(icloudregex);
   if (result) {
     document.cookie = "album="+link;
     const key = result[1];
@@ -166,3 +172,22 @@ $("#loadAlbum").click(function() {
   var link = $("#albumLink").val();
   loadAlbum(link);
 });
+
+
+function getiCloudImageAjax (url, onSuccess) {
+  $.ajax({
+    url: url,
+    type:"GET",
+    success: onSuccess,
+    error: function(error){
+      console.log(`Error${error}`);
+    }});
+}
+
+function populateImage (result) {
+  console.log(result);
+}
+
+function tryiCloudImage (url) {
+  getiCloudImageAjax (url, populateImage);
+}
