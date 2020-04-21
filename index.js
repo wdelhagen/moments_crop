@@ -114,8 +114,6 @@ app.get('/icloudalbum/:id', async function(request, response) {
 
   var baseUrl = getBaseUrl(request.params.id);
   var queue = new Queue(1, Infinity);
-  var leveldb = level('./photosdb');
-  var db = require('level-promisify')(leveldb);
   const links = new Set();
 
   getPhotoMetadata(baseUrl).then(function(metadata) {
@@ -162,7 +160,7 @@ app.get('/icloudalbum/:id', async function(request, response) {
 });
 
 
-app.get('/album/:id', async function(request, response) {
+app.get('/googlealbum/:id', async function(request, response) {
   try {
     const results = await getAlbum(request.params.id)
     response.json(results);

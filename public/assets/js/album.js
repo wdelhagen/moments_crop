@@ -19,9 +19,11 @@ window.onload = function() {
 // https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
 
 // const albumAPI = "/album/"
-const albumAPI = "/icloudalbum/"
-const regex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)/i;
+const googleAlbumAPI = "/googlealbum/"
+const icloudAlbumAPI = "/icloudalbum/"
+const googleregex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)/i;
 const icloudregex = /https:\/\/www\.icloud\.com\/sharedalbum\/#([a-zA-Z0-9\-_]*)/i;
+const combinedregex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)|https:\/\/www\.icloud\.com\/sharedalbum\/#([a-zA-Z0-9\-_]*)/i;
 const test_link = "https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9";
 const test_uncropped_link = "https://photos.app.goo.gl/Mv46AWp44zd8QTLs9"
 
@@ -86,31 +88,37 @@ function addPhoto(album, src, obj) {
     addClass += "needsCrop";
   }
   if (obj.ratio < 1) {
-    album.append(
-       `<div class="col-3 card_frame_${orientation}">
-          <div class="image_frame_${orientation}">
-            <img class="card_image_${orientation}" src="${src}">
-            <img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >
-          </div>
-        </div>`
-    );
+    var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
+    var innerDiv = $(`<div class="image_frame_${orientation}"> </div>`)
+    var img = obj.img;
+    $(img).addClass(`card_image_${orientation}`);
+    var maskImage = $(`<img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
+    innerDiv.append(img);
+    innerDiv.append(maskImage);
+    outerDiv.append(innerDiv);
+    album.append(outerDiv);
+    // album.append(
+    //    `<div class="col-3 card_frame_${orientation}">
+    //       <div class="image_frame_${orientation}">
+    //         <img class="card_image_${orientation}" src="${src}">
+    //         <img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >
+    //       </div>
+    //     </div>`
+    // );
   } else {
-    album.append(
-       `<div class="col-4 card_frame_${orientation}">
-          <div class="image_frame_${orientation}">
-            <img class="card_image_${orientation}" src="${src}">
-            <img class="card_stack_img_horizontal ${addClass}" src="assets/img/print_mask_${orientation}.png" >
-          </div>
-        </div>`
-    );
+    // album.append(
+    //    `<div class="col-4 card_frame_${orientation}">
+    //       <div class="image_frame_${orientation}">
+    //         <img class="card_image_${orientation}" src="${src}">
+    //         <img class="card_stack_img_horizontal ${addClass}" src="assets/img/print_mask_${orientation}.png" >
+    //       </div>
+    //     </div>`
+    // );
   };
 }
 
 function populateImages(imgStore) {
   for (const key in imgStore) {
-    // temp
-    tryiCloudImage (key);
-    // temp
     if (imgStore[key].ratio >= 1) {
       addPhoto(album, key, imgStore[key]);
     };
@@ -131,10 +139,10 @@ function populateAlbum(result) {
   photos.forEach(function(item){
     var img = new Image();
     img.src = item;
-    album.append(img)
+    // album.append(img)
     imgStore[item] = {"img" : img}
     img.onload = function () {
-      imgStore[this.src] = {"ratio" : this.width / this.height};
+      imgStore[this.src].ratio = this.width / this.height;
       imgCount++;
       if (imgCount == photos.length) {
         populateImages(imgStore);
@@ -144,6 +152,9 @@ function populateAlbum(result) {
 }
 
 function getAlbumAjax(url, onSuccess){
+  $("#loadAlbum").html("Reload Album");
+  $("#loadAlbum").removeClass("btn-success");
+  $("#loadAlbum").addClass("btn-warning");
   $.ajax({
     url: url,
     type:"GET",
@@ -154,40 +165,29 @@ function getAlbumAjax(url, onSuccess){
 }
 
 function loadAlbum(link) {
-  var result = link.match(icloudregex);
+  var result = link.match(combinedregex);
   if (result) {
     document.cookie = "album="+link;
-    const key = result[1];
-    url = albumAPI + key;
+  }
+  if (result[1]) {
+    url = googleAlbumAPI + result[1];
     getAlbumAjax(url, populateAlbum);
-    $("#loadAlbum").html("Reload Album");
-    $("#loadAlbum").removeClass("btn-success");
-    $("#loadAlbum").addClass("btn-warning");
+  } else if (result[2]) {
+    url = icloudAlbumAPI + result[2];
+    getAlbumAjax(url, populateAlbum);
   } else {
-    alert("Unable to find Google Photos album from that link. Please check it and try again.")
+    alert("Unable to find album at that link. Please check it and try again.")
   }
 }
+
+$("#albumLink").click(function() {
+  this.select();
+  $("#loadAlbum").html("Load Album");
+  $("#loadAlbum").removeClass("btn-warning");
+  $("#loadAlbum").addClass("btn-success");
+});
 
 $("#loadAlbum").click(function() {
   var link = $("#albumLink").val();
   loadAlbum(link);
 });
-
-
-function getiCloudImageAjax (url, onSuccess) {
-  $.ajax({
-    url: url,
-    type:"GET",
-    success: onSuccess,
-    error: function(error){
-      console.log(`Error${error}`);
-    }});
-}
-
-function populateImage (result) {
-  console.log(result);
-}
-
-function tryiCloudImage (url) {
-  getiCloudImageAjax (url, populateImage);
-}
