@@ -163,7 +163,10 @@ app.get('/icloudalbum/:id', async function(request, response) {
 app.get('/googlealbum/:id', async function(request, response) {
   try {
     const results = await getAlbum(request.params.id)
-    response.json(results);
+    output = results.map(function(elt) {
+      return elt + "=w2048";
+    });
+    response.json(output);
   }
   catch(e) {
     response.status(500)
@@ -304,7 +307,7 @@ function getUrls(baseUrl, photoGuids) {
         body: dataString
     };
 
-    console.log('Retrieving URLs for ' + photoGuids[0] + ' - ' + photoGuids[photoGuids.length - 1] + '...');
+    // console.log('Retrieving URLs for ' + photoGuids[0] + ' - ' + photoGuids[photoGuids.length - 1] + '...');
 
     return rp(options).then(function (body) {
 

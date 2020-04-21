@@ -9,7 +9,6 @@ window.onload = function() {
     } else {
       album = $("#crop_album");
       isCrop = true;
-      console.log(isCrop);
     }
 
     loadAlbumFromCookie();
@@ -26,6 +25,8 @@ const icloudregex = /https:\/\/www\.icloud\.com\/sharedalbum\/#([a-zA-Z0-9\-_]*)
 const combinedregex = /https:\/\/photos\.app\.goo\.gl\/([a-zA-Z0-9\-_]*)|https:\/\/www\.icloud\.com\/sharedalbum\/#([a-zA-Z0-9\-_]*)/i;
 const test_link = "https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9";
 const test_uncropped_link = "https://photos.app.goo.gl/Mv46AWp44zd8QTLs9"
+const imageRatio = 1.5;
+const imageRatioMargin = 0.05;
 
 var album;
 var isCrop = false;
@@ -72,19 +73,19 @@ function getMeta(url, callback) {
 }
 
 function addPhoto(album, src, obj) {
-  src += "=w2048";
   ratio = obj.ratio;
   var addClass="";
   var cropError = 0;
   var orientation = "horizontal";
+
   if (ratio >= 1) {
-    cropError = Math.abs(ratio - 1.5);
+    cropError = Math.abs(ratio - imageRatio);
     orientation = "horizontal";
   } else {
-    cropError = Math.abs(ratio - 2/3);
+    cropError = Math.abs(1/ratio - imageRatio);
     orientation = "vertical";
   }
-  if (isCrop && cropError > 0.1) {
+  if (isCrop && cropError > imageRatioMargin) {
     addClass += "needsCrop";
   }
   if (obj.ratio < 1) {
@@ -92,7 +93,7 @@ function addPhoto(album, src, obj) {
     var innerDiv = $(`<div class="image_frame_${orientation}"> </div>`)
     var img = obj.img;
     $(img).addClass(`card_image_${orientation}`);
-    var maskImage = $(`<img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
+    var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
     innerDiv.append(img);
     innerDiv.append(maskImage);
     outerDiv.append(innerDiv);
@@ -106,6 +107,15 @@ function addPhoto(album, src, obj) {
     //     </div>`
     // );
   } else {
+    var outerDiv = $(`<div class="col-4 card_frame_${orientation}"></div>`)
+    var innerDiv = $(`<div class="image_frame_${orientation}"> </div>`)
+    var img = obj.img;
+    $(img).addClass(`card_image_${orientation}`);
+    var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
+    innerDiv.append(img);
+    innerDiv.append(maskImage);
+    outerDiv.append(innerDiv);
+    album.append(outerDiv);
     // album.append(
     //    `<div class="col-4 card_frame_${orientation}">
     //       <div class="image_frame_${orientation}">
@@ -168,14 +178,15 @@ function loadAlbum(link) {
   var result = link.match(combinedregex);
   if (result) {
     document.cookie = "album="+link;
+    if (result[1]) {
+      url = googleAlbumAPI + result[1];
+      getAlbumAjax(url, populateAlbum);
+    } else if (result[2]) {
+      url = icloudAlbumAPI + result[2];
+      getAlbumAjax(url, populateAlbum);
+    }
   }
-  if (result[1]) {
-    url = googleAlbumAPI + result[1];
-    getAlbumAjax(url, populateAlbum);
-  } else if (result[2]) {
-    url = icloudAlbumAPI + result[2];
-    getAlbumAjax(url, populateAlbum);
-  } else {
+  else {
     alert("Unable to find album at that link. Please check it and try again.")
   }
 }
