@@ -90,7 +90,7 @@ function addPhoto(album, src, obj) {
   }
   if (obj.ratio < 1) {
     var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
-    var innerDiv = $(`<div class="gallery_frame_${orientation}"> </div>`)
+    var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
     var img = obj.img;
     $(img).addClass(`gallery_image_${orientation}`);
     // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
@@ -108,7 +108,7 @@ function addPhoto(album, src, obj) {
     // );
   } else {
     var outerDiv = $(`<div class="col-4 card_frame_${orientation}"></div>`)
-    var innerDiv = $(`<div class="gallery_frame_${orientation}"> </div>`)
+    var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
     var img = obj.img;
     $(img).addClass(`gallery_image_${orientation}`);
     // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);

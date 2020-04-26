@@ -1,35 +1,16 @@
 
 /* GALLERY PROTOTYPE */
 
-.gallery_frame_horizontal {
+.gallery_frame {
 	padding: 0;
 	/* position: relative; */
 	margin: 2em auto;
 	background-position: 0px 0px, 10px 10px;
   background-size: 20px 20px;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
-	-moz-box-shadow: 3px 3px 1px #808080;
+	/* -moz-box-shadow: 3px 3px 1px #808080;
   -webkit-box-shadow: 3px 3px 1px #808080;
-  box-shadow: 3px 3px 1px #808080;
-  -moz-border-radius:22px;
-  -webkit-border-radius:22px;
-  border-radius:22px;
-	overflow: hidden;
-}
-
-.gallery_frame_vertical {
-	padding: 0;
-	/* position: relative; */
-	margin: 2em auto;
-	background-position: 0px 0px, 10px 10px;
-  background-size: 20px 20px;
-  background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
-	-moz-box-shadow: 3px 3px 1px #808080;
-  -webkit-box-shadow: 3px 3px 1px #808080;
-  box-shadow: 3px 3px 1px #808080;
-  -moz-border-radius:22px;
-  -webkit-border-radius:22px;
-  border-radius:22px;
+  box-shadow: 3px 3px 1px #808080; */
 	overflow: hidden;
 }
 
@@ -43,13 +24,19 @@
 	height: 525px;
 }
 
-.gallery_frame_horizontal {
-	height: 349px;
+.gallery_frame {
+	-moz-border-radius:35px;
+	-webkit-border-radius:35px;
+	border-radius:35px;
+}
+
+.gallery_frame.horizontal {
+	height: 350px;
 	width: 525px;
 }
 
-.gallery_frame_vertical {
-	width: 349px;
+.gallery_frame.vertical {
+	width: 350px;
 	height: 525px;
 }
 
@@ -65,14 +52,20 @@
 		height: 390px;
 	}
 
-	.gallery_frame_horizontal {
+	.gallery_frame.horizontal {
 		height: 260px;
 		width: 390px;
 	}
 
-	.gallery_frame_vertical {
+	.gallery_frame.vertical {
 		width: 260px;
 		height: 390px;
+	}
+
+	.gallery_frame {
+		-moz-border-radius:26px;
+		-webkit-border-radius:26px;
+		border-radius:26px;
 	}
 
 
@@ -90,14 +83,20 @@
 		height: 300px;
 	}
 
-	.gallery_frame_horizontal {
+	.gallery_frame.horizontal {
 		height: 200px;
 		width: 300px;
 	}
 
-	.gallery_frame_vertical {
+	.gallery_frame.vertical {
 		width: 200px;
 		height: 300px;
+	}
+
+	.gallery_frame {
+		-moz-border-radius:20px;
+		-webkit-border-radius:20px;
+		border-radius:20px;
 	}
 
 }
@@ -114,14 +113,20 @@
 		height: 240px;
 	}
 
-	.gallery_frame_horizontal {
+	.gallery_frame.horizontal {
 		height: 160px;
 		width: 240px;
 	}
 
-	.gallery_frame_vertical {
+	.gallery_frame.vertical {
 		width: 160px;
 		height: 240px;
+	}
+
+	.gallery_frame {
+		-moz-border-radius:16px;
+		-webkit-border-radius:16px;
+		border-radius:16px;
 	}
 
 }
@@ -138,14 +143,20 @@
 		height: 180px;
 	}
 
-	.gallery_frame_horizontal {
+	.gallery_frame.horizontal {
 		height: 120px;
 		width: 180px;
 	}
 
-	.gallery_frame_vertical {
+	.gallery_frame.vertical {
 		width: 120px;
 		height: 180px;
+	}
+
+	.gallery_frame {
+		-moz-border-radius:12px;
+		-webkit-border-radius:12px;
+		border-radius:12px;
 	}
 
 }
@@ -154,22 +165,58 @@
 
 	.gallery_image_horizontal {
 		/* max-height: 239px; */
-		width: 360px;
+		width: 150px;
 	}
 
 	.gallery_image_vertical {
 		/* max-width: 239px; */
-		height: 360px;
+		height: 150px;
 	}
 
-	.gallery_frame_horizontal {
-		height: 239px;
-		width: 360px;
+	.gallery_frame.horizontal {
+		height: 100px;
+		width: 150px;
 	}
 
-	.gallery_frame_vertical {
-		width: 239px;
-		height: 360px;
+	.gallery_frame.vertical {
+		width: 100px;
+		height: 150px;
+	}
+
+	.gallery_frame {
+		-moz-border-radius:10px;
+		-webkit-border-radius:10px;
+		border-radius:10px;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+	.gallery_image_horizontal {
+		/* max-height: 239px; */
+		width: 120px;
+	}
+
+	.gallery_image_vertical {
+		/* max-width: 239px; */
+		height: 120px;
+	}
+
+	.gallery_frame.horizontal {
+		height: 80px;
+		width: 120px;
+	}
+
+	.gallery_frame.vertical {
+		width: 80px;
+		height: 120px;
+	}
+
+	.gallery_frame {
+		-moz-border-radius:8px;
+		-webkit-border-radius:8px;
+		border-radius:8px;
 	}
 
 }
