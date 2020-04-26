@@ -89,7 +89,7 @@ function addPhoto(album, src, obj) {
     addClass += "needsCrop";
   }
   if (obj.ratio < 1) {
-    var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
+    var outerDiv = $(`<div class="col card_frame_${orientation}"></div>`)
     var innerDiv = $(`<div class="gallery_frame_${orientation}"> </div>`)
     var img = obj.img;
     $(img).addClass(`gallery_image_${orientation}`);
