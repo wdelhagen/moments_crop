@@ -109,6 +109,10 @@ app.get("/order", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/order.html'));
 });
 
+app.get("/gallery", (req, res) => {
+ res.sendFile(path.join(__dirname + '/public/assets/html/gallery.html'));
+});
+
 
 app.get('/icloudalbum/:id', async function(request, response) {
 
