@@ -8,7 +8,13 @@
 	background-position: 0px 0px, 10px 10px;
   background-size: 20px 20px;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
-
+	-moz-box-shadow: 5px 5px 3px #808080;
+  -webkit-box-shadow: 5px 5px 3px #808080;
+  box-shadow: 5px 5px 3px #808080;
+  -moz-border-radius:22px;
+  -webkit-border-radius:22px;
+  border-radius:22px;
+	overflow: hidden;
 }
 
 .gallery_frame_vertical {
@@ -18,30 +24,23 @@
 	background-position: 0px 0px, 10px 10px;
   background-size: 20px 20px;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
-
-}
-
-.gallery_image_horizontal {
-	max-height: 349px;
-	width: 525px;
-	/* border:2px solid #fff; */
-  -moz-box-shadow: 5px 5px 3px #808080;
-  -webkit-box-shadow: 5px 5px 3px #808080;
-  box-shadow: 5px 5px 3px #808080;
-  -moz-border-radius:22px;
-  -webkit-border-radius:22px;
-  border-radius:22px;
-}
-
-.gallery_image_vertical {
-	max-width: 349px;
-	height: 525px;
 	-moz-box-shadow: 5px 5px 3px #808080;
   -webkit-box-shadow: 5px 5px 3px #808080;
   box-shadow: 5px 5px 3px #808080;
   -moz-border-radius:22px;
   -webkit-border-radius:22px;
   border-radius:22px;
+	overflow: hidden;
+}
+
+.gallery_image_horizontal {
+	/* max-height: 349px; */
+	width: 525px;
+}
+
+.gallery_image_vertical {
+	/* max-width: 349px; */
+	height: 525px;
 }
 
 .gallery_frame_horizontal {
@@ -57,12 +56,12 @@
 @media screen and (max-width: 1680px) {
 
 	.gallery_image_horizontal {
-		max-height: 269px;
+		/* max-height: 269px; */
 		width: 405px;
 	}
 
 	.gallery_image_vertical {
-		max-width: 269px;
+		/* max-width: 269px; */
 		height: 405px;
 	}
 
@@ -82,12 +81,12 @@
 @media screen and (max-width: 1280px) {
 
 	.gallery_image_horizontal {
-		max-height: 239px;
+		/* max-height: 239px; */
 		width: 360px;
 	}
 
 	.gallery_image_vertical {
-		max-width: 239px;
+		/* max-width: 239px; */
 		height: 360px;
 	}
 
