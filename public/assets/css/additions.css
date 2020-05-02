@@ -14,23 +14,97 @@
   text-decoration: none;
 }
 
+.footer {
+	background-color: rgba(0, 0, 0, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+	color: #999;
+  transition: ease-in-out color .15s;
+}
+
 
 /* GALLERY PROTOTYPE */
+
+/* .content_wrapper {
+	width: 100%;
+	height: 80%;
+	margin:  0 auto;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	-o-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	align-items: center;
+	-o-align-items: center;
+	-ms-align-items: center;
+	-moz-align-items: center;
+	-webkit-align-items: center;
+	overflow: hidden;
+} */
+
+.page_wrapper {
+	background-image: -moz-linear-gradient( 136deg, rgb(116,235,213) 0%, rgb(63,43,150) 100%);
+	background-image: -webkit-linear-gradient( 136deg, rgb(116,235,213) 0%, rgb(63,43,150) 100%);
+	background-image: -ms-linear-gradient( 136deg, rgb(116,235,213) 0%, rgb(63,43,150) 100%);
+	min-height: 100vh;
+	padding: 	2%;
+}
+
+#create {
+	/* position: relative; */
+	border-radius: 10px;
+	-moz-box-shadow: 0 .5rem 1rem #808080;
+	-webkit-box-shadow: 0 .5rem 1rem #808080;
+	box-shadow: 0 .5rem 1rem #808080;
+	overflow: hidden;
+}
+
+.gallery {
+	background: #D3D3D3;
+	padding: 5px;
+}
+
+.album_wrapper {
+	max-height: 85vh;
+}
+
+.album {
+	height: inherit;
+	margin: 0;
+}
+
+.instructions {
+	background: #ffffff;
+}
+
+#albumLink {
+	width: 80%;
+}
+
+
+.card_frame {
+	padding: 0!important;
+	/* margin: 1em 0; */
+}
 
 .gallery_frame {
 	padding: 0;
 	/* position: relative; */
-	margin: 2em auto;
+	margin: 0.5em auto;
 	background-position: 0px 0px, 10px 10px;
   background-size: 20px 20px;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
 	-moz-box-shadow: 0 .5rem 1rem #808080;
   -webkit-box-shadow: 0 .5rem 1rem #808080;
-  /* box-shadow: 3px 3px 1px #808080; */
 	box-shadow: 0 .5rem 1rem #808080;
 	overflow: hidden;
 	/* transform: rotateX(60deg) rotateY(0deg) rotate(-45deg) scale(1.125);
   transform-style: preserve-3d; */
+	-moz-border-radius:35px;
+	-webkit-border-radius:35px;
+	border-radius:35px;
 }
 
 .gallery_image_horizontal {
@@ -43,13 +117,7 @@
 	height: 525px;
 }
 
-.gallery_frame {
-	-moz-border-radius:35px;
-	-webkit-border-radius:35px;
-	border-radius:35px;
-}
-
-.gallery_frame.horizontal {
+/* .gallery_frame.horizontal {
 	height: 350px;
 	width: 525px;
 }
@@ -57,37 +125,43 @@
 .gallery_frame.vertical {
 	width: 350px;
 	height: 525px;
-}
+} */
 
 @media screen and (max-width: 1680px) {
 
-	.gallery_image_horizontal {
+	.gallery_image.horizontal {
 		/* max-height: 269px; */
-		width: 390px;
+		width: 200px;
+		position: relative;
+  	top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
-	.gallery_image_vertical {
+	.gallery_image.vertical {
 		/* max-width: 269px; */
-		height: 390px;
+		height: 200px;
+		position: relative;
+  	top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 	.gallery_frame.horizontal {
-		height: 260px;
-		width: 390px;
+		height: 130px;
+		width: 195px;
 	}
 
 	.gallery_frame.vertical {
-		width: 260px;
-		height: 390px;
+		width: 130px;
+		height: 195px;
 	}
 
 	.gallery_frame {
-		-moz-border-radius:26px;
-		-webkit-border-radius:26px;
-		border-radius:26px;
+		-moz-border-radius:10px;
+		-webkit-border-radius:10px;
+		border-radius:10px;
 	}
-
-
 }
 
 @media screen and (max-width: 1280px) {
@@ -241,7 +315,7 @@
 }
 
 
-/* GALLERY PROTOTYPE */
+/* END GALLERY PROTOTYPE */
 
 
 
@@ -550,14 +624,6 @@
 
 }
 
-.album {
-	/* background: #D3D3D3; */
-	background: #ffffff;
-	border-radius: 5px;
-	padding: 20px;
-	margin: 0;
-}
-
 /* #test {
 	background: #ffffff;
 	border-radius: 5px;
@@ -616,16 +682,6 @@
   background-size: 20px 20px;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
 }
-
-.card_frame_horizontal {
-	padding: 0;
-}
-
-.card_frame_vertical {
-	padding: 0;
-}
-
-
 
 .emo {
   margin-left: 40px;

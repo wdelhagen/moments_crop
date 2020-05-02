@@ -10,49 +10,56 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>CREATE</title>
   </head>
   <body>
-    <nav class="site-header sticky-top py-1">
-      <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <a class="py-2" href="#" aria-label="Create">
-          <svg class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
-          </svg>
-        </a>
-        <a class="py-2 d-none d-md-inline-block" href="#">Get Started</a>
-      </div>
-    </nav>
 
-    <!-- Section -->
-    <div id="create" class="container-fluid">
-			<div class="row">
-				<div class="col">
-					<h4>Enter a link to your shared Google Photos or iCloud album</h4>
-					<input type="text" id="albumLink" value="https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9">
-					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">Load Album</a>
-				</div>
-			</div>
-			<div id="gallery_album" class="row album">
-			</div>
+    <div class="page_wrapper">
+
+      <!-- <nav class="site-header sticky-top py-1">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+          <a class="py-2" href="#" aria-label="Create">
+            <svg class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+          <a class="py-2 d-none d-md-inline-block" href="#">Get Started</a>
+        </div>
+      </nav> -->
+
+      <!-- <div class="content_wrapper"> -->
+
+        <div class="container-fluid">
+          <div id="create" class="row">
+            <div class="col-4 instructions"></div>
+            <div class="col-8 gallery">
+              <div class="row">
+        				<div class="col-12">
+        					<!-- <h4>Enter a link to your shared Google Photos or iCloud album</h4> -->
+        					<input type="text" id="albumLink">
+        					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">Load Album</a>
+        				</div>
+        			</div>
+              <div class="album_wrapper overflow-auto">
+                <div id="gallery_album" class="row album"></div>
+              </div>
+            </div>
+      		</div>
+        </div>
+      <!-- </div> -->
+
+      <!-- Footer -->
+      <!-- <footer class="footer">
+          <a href="mailto:will@moments.cards" class="icon fa-envelope-o"><span class="label">Email</span></a>
+          <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+          &copy; MOMENTS. All rights reserved. Images: <a href="https://unsplash.com">Unsplash</a>.
+      </footer> -->
+
     </div>
 
-  <!-- Footer -->
-    <footer id="footer">
-      <div class="copyright">
-        <ul class="icons">
-          <li><a href="mailto:will@moments.cards" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-          <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-        </ul>
-        <p>&copy; MOMENTS. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
-      </div>
-    </footer>
-
-  <!-- Scripts -->
 
 
-
-
+    <!-- Scripts -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>

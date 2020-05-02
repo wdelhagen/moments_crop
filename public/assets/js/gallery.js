@@ -88,43 +88,62 @@ function addPhoto(album, src, obj) {
   if (isCrop && cropError > imageRatioMargin) {
     addClass += "needsCrop";
   }
-  if (obj.ratio < 1) {
-    var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
-    var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
-    var img = obj.img;
-    $(img).addClass(`gallery_image_${orientation}`);
-    // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
-    innerDiv.append(img);
-    // innerDiv.append(maskImage);
-    outerDiv.append(innerDiv);
-    album.append(outerDiv);
-    // album.append(
-    //    `<div class="col-3 card_frame_${orientation}">
-    //       <div class="image_frame_${orientation}">
-    //         <img class="card_image_${orientation}" src="${src}">
-    //         <img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >
-    //       </div>
-    //     </div>`
-    // );
-  } else {
-    var outerDiv = $(`<div class="col-4 card_frame_${orientation}"></div>`)
-    var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
-    var img = obj.img;
-    $(img).addClass(`gallery_image_${orientation}`);
-    // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
-    innerDiv.append(img);
-    // innerDiv.append(maskImage);
-    outerDiv.append(innerDiv);
-    album.append(outerDiv);
-    // album.append(
-    //    `<div class="col-4 card_frame_${orientation}">
-    //       <div class="image_frame_${orientation}">
-    //         <img class="card_image_${orientation}" src="${src}">
-    //         <img class="card_stack_img_horizontal ${addClass}" src="assets/img/print_mask_${orientation}.png" >
-    //       </div>
-    //     </div>`
-    // );
-  };
+  var outerDiv = $(`<div class="col-3 card_frame my-auto"></div>`)
+  var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
+  var img = obj.img;
+  $(img).addClass(`gallery_image ${orientation}`);
+  innerDiv.append(img);
+  outerDiv.append(innerDiv);
+  album.append(outerDiv);
+
+  // var outerDiv = $(`<div class="col-3 card_frame my-auto"></div>`)
+  // var middleDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
+  // var innerDiv = $(`<div class="image_holder ${orientation}"> </div>`)
+  // var img = obj.img;
+  // $(img).addClass(`gallery_image ${orientation}`);
+  // innerDiv.append(img);
+  // middleDiv.append(innerDiv);
+  // outerDiv.append(middleDiv);
+  // album.append(outerDiv);
+
+
+  // if (obj.ratio < 1) {
+  //   // var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
+  //   var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
+  //   var img = obj.img;
+  //   $(img).addClass(`gallery_image_${orientation}`);
+  //   // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
+  //   innerDiv.append(img);
+  //   // innerDiv.append(maskImage);
+  //   outerDiv.append(innerDiv);
+  //   album.append(outerDiv);
+  //   // album.append(
+  //   //    `<div class="col-3 card_frame_${orientation}">
+  //   //       <div class="image_frame_${orientation}">
+  //   //         <img class="card_image_${orientation}" src="${src}">
+  //   //         <img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >
+  //   //       </div>
+  //   //     </div>`
+  //   // );
+  // } else {
+  //   // var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
+  //   var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
+  //   var img = obj.img;
+  //   $(img).addClass(`gallery_image_${orientation}`);
+  //   // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
+  //   innerDiv.append(img);
+  //   // innerDiv.append(maskImage);
+  //   outerDiv.append(innerDiv);
+  //   album.append(outerDiv);
+  //   // album.append(
+  //   //    `<div class="col-4 card_frame_${orientation}">
+  //   //       <div class="image_frame_${orientation}">
+  //   //         <img class="card_image_${orientation}" src="${src}">
+  //   //         <img class="card_stack_img_horizontal ${addClass}" src="assets/img/print_mask_${orientation}.png" >
+  //   //       </div>
+  //   //     </div>`
+  //   // );
+  // };
 }
 
 function populateImages(imgStore) {
