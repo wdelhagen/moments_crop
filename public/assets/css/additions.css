@@ -120,8 +120,7 @@ li {
 }
 
 .gallery {
-	flex: 3 1 auto;
-	width: 50vw;
+	flex: 10 0 50vw;
 	background: #D3D3D3;
 	height: 95vh;
 	/* width: 95vh; */

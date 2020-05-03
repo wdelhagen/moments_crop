@@ -210,6 +210,7 @@ $("#loadAlbum").click(function() {
   var link = $("#albumLink").val();
   if (link == "clear") {
     document.cookie = "album=null";
+    location.reload();
     return;
   }
   try {
