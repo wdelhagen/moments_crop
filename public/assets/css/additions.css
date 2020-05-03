@@ -46,10 +46,11 @@
 
 .gallery {
 	padding: 0!important;
+	min-width: 500px;
 }
 
 .album_wrapper {
-	height: 85vh;
+	height: 90vh;
 	background: #D3D3D3;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -96,6 +97,9 @@
 	overflow: hidden;
 	/* transform: rotateX(60deg) rotateY(0deg) rotate(-45deg) scale(1.125);
   transform-style: preserve-3d; */
+}
+
+.gallery_frame {
 	-moz-border-radius:35px;
 	-webkit-border-radius:35px;
 	border-radius:35px;
@@ -110,16 +114,6 @@
 	/* max-width: 349px; */
 	height: 525px;
 }
-
-/* .gallery_frame.horizontal {
-	height: 350px;
-	width: 525px;
-}
-
-.gallery_frame.vertical {
-	width: 350px;
-	height: 525px;
-} */
 
 @media screen and (max-width: 1680px) {
 
