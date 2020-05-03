@@ -18,6 +18,21 @@
 
       <!-- START LOAD ALBUM -->
 
+      <div id="new_album" class="row">
+        <div class="col-6 text-center">
+
+          <h3>Create an album with Google Photos.</h3>
+          <h3>Add at least one image to the album.</h3>
+          <h3>Get a sharing link and enter it here.</h3>
+        </div>
+
+        <div class="col-6">
+          <input type="text" id="newAlbumLink">
+          <a class="btn btn-success" id="newAlbum" href="javascript:void(0);">
+            Load Album
+          </a>
+        </div>
+      </div>
 
 
       <!-- END LOAD ALBUM -->
@@ -27,12 +42,42 @@
         <div class="col-4 instructions">
           <!-- Put the three sets of instructions here -->
 
-          <h1>Instructions</h1>
 
 
-        </div>
-        <div class="col gallery">
-          <div class="row load_album">
+          <h2>Your MOMENTS CARDS</h2>
+
+          <div id="collect_step">
+            <h3>Collect 12 images in <a id="your_album" target="_blank">your album</a>.</h3>
+          </div>
+
+          <div id="crop_step">
+            <h3>Crop the images to a 3:2 ratio (portrait or landscape).</h3>
+          </div>
+
+          <div id="create_step">
+            <h3>Create your cards by choosing a design below.</h3>
+          </div>
+
+          <div class="bottom_nav">
+            <div class="row next_step no-gutters">
+              <div class="col text-right">
+      					<a class="btn btn-warning" id="btn_next_step" href="javascript:void(0);">
+                  Next step
+                </a>
+              </div>
+      			</div>
+
+            <div class="row load_album no-gutters">
+              <div class="col">
+      					<input type="text" id="albumLink">
+      					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">
+                  Load Album
+                </a>
+              </div>
+      			</div>
+          </div>
+
+          <!-- <div class="row load_album">
     				<div class="col-9  my-auto">
     					<input type="text" id="albumLink">
             </div>
@@ -41,7 +86,10 @@
                 Load Album
               </a>
     				</div>
-    			</div>
+    			</div> -->
+
+        </div>
+        <div class="col gallery">
           <div class="album_wrapper">
             <div id="gallery_album" class="row album justify-content-center"></div>
           </div>

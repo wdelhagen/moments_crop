@@ -40,7 +40,15 @@ function loadAlbumFromCookie() {
   var cookieAlbum = getCookie("album");
   if (cookieAlbum.length > 0) {
     $("#albumLink").val(cookieAlbum);
-    loadAlbum(cookieAlbum);
+    try {
+      loadAlbum(cookieAlbum);
+      $("#loadAlbum").html("Reload Album");
+      $("#new_album").hide();
+      $("#create").css("visibility", "visible");
+    }
+    catch (e) {
+      console.log("Cookie contained 'album' value, but link failed to load.")
+    }
   }
 }
 
@@ -97,55 +105,6 @@ function addPhoto(album, obj) {
   innerDiv.append(img);
   outerDiv.append(innerDiv);
   album.append(outerDiv);
-
-  // var outerDiv = $(`<div class="col-3 card_frame my-auto"></div>`)
-  // var middleDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
-  // var innerDiv = $(`<div class="image_holder ${orientation}"> </div>`)
-  // var img = obj.img;
-  // $(img).addClass(`gallery_image ${orientation}`);
-  // innerDiv.append(img);
-  // middleDiv.append(innerDiv);
-  // outerDiv.append(middleDiv);
-  // album.append(outerDiv);
-
-
-  // if (obj.ratio < 1) {
-  //   // var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
-  //   var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
-  //   var img = obj.img;
-  //   $(img).addClass(`gallery_image_${orientation}`);
-  //   // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
-  //   innerDiv.append(img);
-  //   // innerDiv.append(maskImage);
-  //   outerDiv.append(innerDiv);
-  //   album.append(outerDiv);
-  //   // album.append(
-  //   //    `<div class="col-3 card_frame_${orientation}">
-  //   //       <div class="image_frame_${orientation}">
-  //   //         <img class="card_image_${orientation}" src="${src}">
-  //   //         <img class="card_stack_img_vertical ${addClass}" src="assets/img/print_mask_${orientation}.png" >
-  //   //       </div>
-  //   //     </div>`
-  //   // );
-  // } else {
-  //   // var outerDiv = $(`<div class="col-3 card_frame_${orientation}"></div>`)
-  //   var innerDiv = $(`<div class="gallery_frame ${orientation}"> </div>`)
-  //   var img = obj.img;
-  //   $(img).addClass(`gallery_image_${orientation}`);
-  //   // var maskImage = $(`<img class="card_stack_img_${orientation} ${addClass}" src="assets/img/print_mask_${orientation}.png" >`);
-  //   innerDiv.append(img);
-  //   // innerDiv.append(maskImage);
-  //   outerDiv.append(innerDiv);
-  //   album.append(outerDiv);
-  //   // album.append(
-  //   //    `<div class="col-4 card_frame_${orientation}">
-  //   //       <div class="image_frame_${orientation}">
-  //   //         <img class="card_image_${orientation}" src="${src}">
-  //   //         <img class="card_stack_img_horizontal ${addClass}" src="assets/img/print_mask_${orientation}.png" >
-  //   //       </div>
-  //   //     </div>`
-  //   // );
-  // };
 }
 
 function populateImages(imgStore) {
@@ -164,7 +123,6 @@ function populateImages(imgStore) {
 
 function populateAlbum(result) {
   var photos = result;
-  console.log(result);
   var numBlanks = 0;
   var imgStore = new Object();
   var imgCount = 0;
@@ -194,9 +152,6 @@ function populateAlbum(result) {
 }
 
 function getAlbumAjax(url, onSuccess){
-  $("#loadAlbum").html("Reload Album");
-  $("#loadAlbum").removeClass("btn-success");
-  $("#loadAlbum").addClass("btn-warning");
   $.ajax({
     url: url,
     type:"GET",
@@ -217,20 +172,41 @@ function loadAlbum(link) {
       url = icloudAlbumAPI + result[2];
       getAlbumAjax(url, populateAlbum);
     }
+    $("#loadAlbum").html("Reload Album");
+    $("#loadAlbum").removeClass("btn-success");
+    $("#loadAlbum").addClass("btn-primary");
+    $("#your_album").attr("href", link);
   }
   else {
-    alert("Unable to find album at that link. Please check it and try again.")
+    throw 'InvalidAlbumLink';
   }
 }
 
 $("#albumLink").click(function() {
   this.select();
   $("#loadAlbum").html("Load Album");
-  $("#loadAlbum").removeClass("btn-warning");
+  $("#loadAlbum").removeClass("btn-primary");
   $("#loadAlbum").addClass("btn-success");
 });
 
 $("#loadAlbum").click(function() {
   var link = $("#albumLink").val();
-  loadAlbum(link);
+  try {
+    loadAlbum(link);
+  }
+  catch (e) {
+    alert("Unable to find album at that link. Please check it and try again.")
+  }
+});
+
+$("#newAlbum").click(function() {
+  var link = $("#newAlbumLink").val();
+  try {
+    loadAlbum(link);
+    $("#new_album").hide();
+    $("#create").css("visibility", "visible");
+  }
+  catch (e) {
+    alert("Unable to find album at that link. Please check it and try again.")
+  }
 });
