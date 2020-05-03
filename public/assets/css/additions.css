@@ -44,11 +44,6 @@
 	overflow: hidden;
 }
 
-.gallery {
-	padding: 0!important;
-	min-width: 620px;
-}
-
 .album_wrapper {
 	height: 90vh;
 	background: #D3D3D3;
@@ -94,47 +89,52 @@
   transform-style: preserve-3d; */
 }
 
+.gallery_image.horizontal {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.gallery_image.vertical {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.gallery {
+	padding: 0!important;
+	min-width: 450px;
+}
+
 .card_frame {
 	padding: 0!important;
-	min-width: 250px;
+	min-width: 215px;
 }
 
 .gallery_image.horizontal {
-	position: relative;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	width: 16.8vw;
+	min-width: 215px;
 }
 
 .gallery_image.vertical {
-	position: relative;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.gallery_image.horizontal {
-	width: 18.5vw;
-	min-width: 245px;
-}
-
-.gallery_image.vertical {
-	height: 18.5vw;
-	min-height: 245px;
+	height: 16.8vw;
+	min-height: 215px;
 }
 
 .gallery_frame.horizontal {
-	height: 12vw;
-	width: 18vw;
-	min-height: 160px;
-	min-width: 240px;
+	height: 11vw;
+	width: 16.5vw;
+	min-height: 140px;
+	min-width: 210px;
 }
 
 .gallery_frame.vertical {
-	width: 12vw;
-	height: 18vw;
-	min-width: 160px;
-	min-height: 240px;
+	width: 11vw;
+	height: 16.5vw;
+	min-width: 140px;
+	min-height: 210px;
 }
 
 .gallery_frame {
