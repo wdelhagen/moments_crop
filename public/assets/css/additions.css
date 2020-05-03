@@ -85,14 +85,6 @@ li {
 	padding: 10px;
 }
 
-.album_wrapper {
-	height: 95vh;
-	width: 95vh;
-	overflow-y: auto;
-	overflow-x: hidden;
-	padding: 5px 15px 5px 15px;
-}
-
 .instructions {
 	background: #ffffff;
 	padding: 0!important;
@@ -122,9 +114,17 @@ li {
 	/* background: orange; */
 }
 
+.album_wrapper {
+	height: 95vh;
+	/* width: 95vh; */
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 5px 15px 5px 15px;
+}
+
 .gallery {
 	padding: 0!important;
-	min-width: 450px;
+	min-width: 400px;
 	background: #D3D3D3;
 }
 
@@ -138,17 +138,16 @@ li {
 .card_frame {
 	flex-basis: auto;
 	padding: 0!important;
-
 }
 
 .card_frame.horizontal {
-	width: 27vh!important;
-	min-width: 215px;
+	width: 27.5vh!important;
+	min-width: 185px;
 }
 
 .card_frame.vertical {
 	width: 20vh!important;
-	min-width: 145px;
+	min-width: 125px;
 }
 
 .gallery_frame {
@@ -176,27 +175,27 @@ li {
 }
 
 .gallery_image.horizontal {
-	width: 27vh;
-	min-width: 215px;
+	width: 27.5vh;
+	min-width: 185px;
 }
 
 .gallery_image.vertical {
-	height: 27vh;
-	min-height: 215px;
+	height: 27.5vh;
+	min-height: 185px;
 }
 
 .gallery_frame.horizontal {
 	height: 18vh;
 	width: 27vh;
-	min-height: 140px;
-	min-width: 210px;
+	min-height: 120px;
+	min-width: 180px;
 }
 
 .gallery_frame.vertical {
 	width: 18vh;
 	height: 27vh;
-	min-width: 140px;
-	min-height: 210px;
+	min-width: 120px;
+	min-height: 180px;
 }
 
 /* END GALLERY PROTOTYPE */

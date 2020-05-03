@@ -109,12 +109,17 @@ function addPhoto(album, obj) {
 
 function populateImages(imgStore) {
   for (const key in imgStore) {
-    if (imgStore[key].ratio >= 1) {
+    if (!imgStore[key].blank && imgStore[key].ratio >= 1) {
       addPhoto(album, imgStore[key]);
     };
   }
   for (const key in imgStore) {
-    if (imgStore[key].ratio < 1) {
+    if (!imgStore[key].blank && imgStore[key].ratio < 1) {
+      addPhoto(album, imgStore[key]);
+    };
+  }
+  for (const key in imgStore) {
+    if (imgStore[key].blank) {
       addPhoto(album, imgStore[key]);
     };
   }
@@ -139,8 +144,10 @@ function populateAlbum(result) {
   photos.forEach(function(item, index){
     var img = new Image();
     img.src = item;
-    // album.append(img)
     imgStore[index] = {"img" : img}
+    if (item == blankImage) {
+      imgStore[index].blank = true;
+    }
     img.onload = function () {
       imgStore[index].ratio = this.width / this.height;
       imgCount++;
