@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="assets/css/additions.css" />
+    <link rel="stylesheet" href="/assets/css/additions.css" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -16,44 +16,40 @@
 
     <div class="page_wrapper">
 
-      <!-- <nav class="site-header sticky-top py-1">
-        <div class="container d-flex flex-column flex-md-row justify-content-between">
-          <a class="py-2" href="#" aria-label="Create">
-            <svg class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
-            </svg>
-          </a>
-          <a class="py-2 d-none d-md-inline-block" href="#">Get Started</a>
+      <!-- START LOAD ALBUM -->
+
+
+
+      <!-- END LOAD ALBUM -->
+
+      <!-- START CREATE -->
+      <div id="create" class="container-fluid row">
+        <div class="col-5 instructions">
+          <!-- Put the three sets of instructions here -->
+
+
+
+
         </div>
-      </nav> -->
-
-      <!-- <div class="content_wrapper"> -->
-
-        <div class="container-fluid">
-          <div id="create" class="row">
-            <div class="col-4 instructions"></div>
-            <div class="col-8 gallery">
-              <div class="row">
-        				<div class="col-12">
-        					<!-- <h4>Enter a link to your shared Google Photos or iCloud album</h4> -->
-        					<input type="text" id="albumLink">
-        					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">Load Album</a>
-        				</div>
-        			</div>
-              <div class="album_wrapper overflow-auto">
-                <div id="gallery_album" class="row album"></div>
-              </div>
+        <div class="col-7 gallery">
+          <div class="row load_album">
+    				<div class="col-9  my-auto">
+    					<input type="text" id="albumLink">
             </div>
-      		</div>
-        </div>
-      <!-- </div> -->
+            <div class="col-3 my-auto">
+    					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">
+                Load Album
+              </a>
+    				</div>
+    			</div>
+          <div class="album_wrapper">
+            <div id="gallery_album" class="row album"></div>
+          </div>
 
-      <!-- Footer -->
-      <!-- <footer class="footer">
-          <a href="mailto:will@moments.cards" class="icon fa-envelope-o"><span class="label">Email</span></a>
-          <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
-          &copy; MOMENTS. All rights reserved. Images: <a href="https://unsplash.com">Unsplash</a>.
-      </footer> -->
+        </div>
+  		</div>
+      <!-- END CREATE -->
+
 
     </div>
 
