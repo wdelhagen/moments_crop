@@ -30,6 +30,10 @@
 	padding: 	2%;
 }
 
+li {
+	line-height: 2em;
+}
+
 #new_album {
 	/* display: none; */
 	background: #ffffff;
