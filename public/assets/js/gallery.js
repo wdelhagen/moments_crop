@@ -44,7 +44,7 @@ function loadAlbumFromCookie() {
       loadAlbum(cookieAlbum);
       $("#loadAlbum").html("Reload Album");
       $("#new_album").hide();
-      $("#create").css("visibility", "visible");
+      $("#create").css("display", "flex");
     }
     catch (e) {
       console.log("Cookie contained 'album' value, but link failed to load.")
@@ -98,7 +98,7 @@ function addPhoto(album, obj) {
   if (isCrop && cropError > imageRatioMargin) {
     addClass += "needsCrop";
   }
-  var outerDiv = $(`<div class="col-4 card_frame my-auto"></div>`);
+  var outerDiv = $(`<div class="card_frame my-auto ${orientation}"></div>`);
   var innerDiv = $(`<div class="gallery_frame ${orientation} ${addClass}"> </div>`)
   var img = obj.img;
   $(img).addClass(`gallery_image ${orientation}`);
@@ -175,6 +175,7 @@ function loadAlbum(link) {
     $("#loadAlbum").html("Reload Album");
     $("#loadAlbum").removeClass("btn-success");
     $("#loadAlbum").addClass("btn-primary");
+    $("#albumLink").val(link);
     $("#your_album").attr("href", link);
   }
   else {
@@ -187,6 +188,10 @@ $("#albumLink").click(function() {
   $("#loadAlbum").html("Load Album");
   $("#loadAlbum").removeClass("btn-primary");
   $("#loadAlbum").addClass("btn-success");
+});
+
+$("#newAlbumLink").click(function() {
+  this.select();
 });
 
 $("#loadAlbum").click(function() {
@@ -204,7 +209,7 @@ $("#newAlbum").click(function() {
   try {
     loadAlbum(link);
     $("#new_album").hide();
-    $("#create").css("visibility", "visible");
+    $("#create").css("display", "flex");
   }
   catch (e) {
     alert("Unable to find album at that link. Please check it and try again.")

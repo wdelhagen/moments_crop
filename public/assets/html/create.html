@@ -19,15 +19,15 @@
       <!-- START LOAD ALBUM -->
 
       <div id="new_album" class="row">
-        <div class="col-6 text-center">
+        <div class="col">
 
-          <h3>Create an album with Google Photos.</h3>
-          <h3>Add at least one image to the album.</h3>
-          <h3>Get a sharing link and enter it here.</h3>
-        </div>
-
-        <div class="col-6">
-          <input type="text" id="newAlbumLink">
+          <h3>Get Started</h3>
+          <ol>
+            <li>Create an album with <a href="https://photos.google.com">Google Photos</a>.</li>
+            <li>Add at least one image to the album.</li>
+            <li>Get a sharing link and enter it here.</li>
+          </ol>
+          <input type="text" id="newAlbumLink"><br />
           <a class="btn btn-success" id="newAlbum" href="javascript:void(0);">
             Load Album
           </a>
@@ -91,7 +91,7 @@
         </div>
         <div class="col gallery">
           <div class="album_wrapper">
-            <div id="gallery_album" class="row album justify-content-center"></div>
+            <div id="gallery_album" class="album"></div>
           </div>
 
         </div>
