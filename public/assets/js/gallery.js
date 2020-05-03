@@ -1,6 +1,11 @@
 window.onload = function() {
     'use strict';
 
+    $("#create").hide();
+    $("#crop_step").hide();
+    $("#create_step").hide();
+
+
     // test with big uncropped album
     // getAlbumAjax("/album/"+"Mv46AWp44zd8QTLs9", populateAlbum);
 
@@ -44,7 +49,7 @@ function loadAlbumFromCookie() {
       loadAlbum(cookieAlbum);
       $("#loadAlbum").html("Reload Album");
       $("#new_album").hide();
-      $("#create").css("display", "flex");
+      $("#create").show();
     }
     catch (e) {
       console.log("Cookie contained 'album' value, but link failed to load.")
@@ -211,12 +216,19 @@ $("#loadAlbum").click(function() {
   }
 });
 
+$("#btn_next_step").click(function() {
+  $("#collect_step").hide();
+  $("#crop_step").show();
+});
+
+
+
 $("#newAlbum").click(function() {
   var link = $("#newAlbumLink").val();
   try {
     loadAlbum(link);
     $("#new_album").hide();
-    $("#create").css("display", "flex");
+    $("#create").show();
   }
   catch (e) {
     alert("Unable to find album at that link. Please check it and try again.")

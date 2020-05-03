@@ -92,11 +92,10 @@ li {
 }
 
 #crop_step {
-	display: none;
+
 }
 
 #create_step {
-	display: none;
 }
 
 .bottom_nav {
@@ -111,13 +110,13 @@ li {
 }
 
 .instructions {
-	flex: 1 1 auto;
+	flex: 1 1 0;
 	background: #ffffff;
 	padding: 0!important;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-between;
-	min-width: 35vw;
+	min-width: 450px;
 }
 
 .gallery {
