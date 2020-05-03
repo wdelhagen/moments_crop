@@ -59,62 +59,47 @@
       <!-- END LOAD ALBUM -->
 
       <!-- START CREATE -->
-      <div id="create" class="row">
-        <div class="col-4 instructions">
+      <div id="create" class="">
+        <div class="instructions">
           <!-- Put the three sets of instructions here -->
 
 
+          <div class="instruction_text">
+            <h2>Your MOMENTS CARDS</h2>
 
-          <h2>Your MOMENTS CARDS</h2>
-
-          <div id="collect_step">
-            <h3>Collect 12 images in <a id="your_album" target="_blank">your album</a>.</h3>
-          </div>
-
-          <div id="crop_step">
-            <h3>Crop the images to a 3:2 ratio (portrait or landscape).</h3>
-          </div>
-
-          <div id="create_step">
-            <h3>Create your cards by choosing a design below.</h3>
-          </div>
-
-          <div class="bottom_nav">
-            <div class="row next_step no-gutters">
-              <div class="col text-right">
-      					<a class="btn btn-warning" id="btn_next_step" href="javascript:void(0);">
-                  Next step
-                </a>
-              </div>
-      			</div>
-
-            <div class="row load_album no-gutters">
-              <div class="col">
-      					<input type="text" id="albumLink">
-      					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">
-                  Load Album
-                </a>
-              </div>
-      			</div>
-          </div>
-
-          <!-- <div class="row load_album">
-    				<div class="col-9  my-auto">
-    					<input type="text" id="albumLink">
+            <div id="collect_step">
+              <h3>Collect 12 images in <a id="your_album" target="_blank">your album</a>.</h3>
             </div>
-            <div class="col-3 my-auto">
+
+            <div id="crop_step">
+              <h3>Crop the images to a 3:2 ratio (portrait or landscape).</h3>
+            </div>
+
+            <div id="create_step">
+              <h3>Create your cards by choosing a design below.</h3>
+            </div>
+          </div>
+
+          <div class="create_controls">
+            <div class="next_step text-right">
+    					<a class="btn btn-warning btn-lg" id="btn_next_step" href="javascript:void(0);">
+                Next step
+              </a>
+      			</div>
+
+            <div class="load_album text-right">
+    					<input type="text" id="albumLink">
     					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">
                 Load Album
               </a>
-    				</div>
-    			</div> -->
-
-        </div>
-        <div class="col gallery">
-          <div class="album_wrapper">
-            <div id="gallery_album" class="album"></div>
+            </div>
           </div>
 
+        </div>
+
+
+        <div class="gallery">
+          <div id="gallery_album" class="album"></div>
         </div>
   		</div>
       <!-- END CREATE -->

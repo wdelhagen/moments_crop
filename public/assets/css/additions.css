@@ -51,7 +51,8 @@ li {
 /* CREATE BOX */
 
 #create {
-	display: none;
+	display: flex;
+	flex-flow: row wrap;
 	background: #ffffff;
 	padding: 0;
 	margin: 0 auto;
@@ -60,6 +61,30 @@ li {
 	-webkit-box-shadow: 0 .5rem 1rem #808080;
 	box-shadow: 0 .5rem 1rem #808080;
 	overflow: hidden;
+}
+
+#albumLink {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+#newAlbumLink {
+	width: 100%;
+	margin: 5px 0;
+}
+
+.load_album {
+	/* position: absolute;
+	margin: 0!important; */
+	background: #D3D3D3;
+	padding: 10px 5px;
+	/* bottom:0 !important; */
+	width: 100%;
+}
+
+.needsCrop {
+	border: 3px solid red;
+	/* background: orange; */
 }
 
 #collect_step {
@@ -86,35 +111,19 @@ li {
 }
 
 .instructions {
+	flex: 1 1 auto;
 	background: #ffffff;
 	padding: 0!important;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	min-width: 35vw;
 }
 
-#albumLink {
-	width: 100%;
-	margin-bottom: 5px;
-}
-
-#newAlbumLink {
-	width: 100%;
-	margin: 5px 0;
-}
-
-.load_album {
-	/* position: absolute;
-	margin: 0!important; */
+.gallery {
+	flex: 10 1 auto;
+	width: 50vw;
 	background: #D3D3D3;
-	padding: 5px;
-	/* bottom:0 !important; */
-	width: 100%;
-}
-
-.needsCrop {
-	border: 3px solid red;
-	/* background: orange; */
-}
-
-.album_wrapper {
 	height: 95vh;
 	/* width: 95vh; */
 	overflow-y: auto;
@@ -122,10 +131,8 @@ li {
 	padding: 5px 15px 5px 15px;
 }
 
-.gallery {
-	padding: 0!important;
-	min-width: 400px;
-	background: #D3D3D3;
+.album_wrapper {
+
 }
 
 .album {
@@ -136,7 +143,7 @@ li {
 }
 
 .card_frame {
-	flex-basis: auto;
+	flex: 0 1 auto;
 	padding: 0!important;
 }
 
