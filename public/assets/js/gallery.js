@@ -208,6 +208,10 @@ $("#newAlbumLink").click(function() {
 
 $("#loadAlbum").click(function() {
   var link = $("#albumLink").val();
+  if (link == "clear") {
+    document.cookie = "album=null";
+    return;
+  }
   try {
     loadAlbum(link);
   }
