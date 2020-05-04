@@ -1,6 +1,7 @@
 window.onload = function() {
     'use strict';
 
+    pageState = "collect";
     album = $("#gallery_album");
     $("#create").hide();
     $("#crop_step").hide();
@@ -11,9 +12,16 @@ window.onload = function() {
 
     loadAlbumFromCookie();
 
+    // DEV
+    // createStep();
+
 }
 
 // https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
+
+// 2 card album:  https://photos.app.goo.gl/xxUP9zWShUPUxGVA6
+// Complete & cropped: https://photos.app.goo.gl/ZjZEWmW2bEDtJQrm6
+
 
 // const albumAPI = "/album/"
 const googleAlbumAPI = "/googlealbum/"
@@ -26,23 +34,44 @@ const test_uncropped_link = "https://photos.app.goo.gl/Mv46AWp44zd8QTLs9"
 const imageRatio = 1.5;
 const imageRatioMargin = 0.1;
 const blankImage = "assets/img/blank_image.png";
-const minNumImages = 12;
+const numCards = 12;
+
+const redX = `<svg class="bi bi-x-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+                      <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                      <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
+                    </svg>`
+const greenCheck = `<svg class="bi bi-check" width="1em" height="1em" viewBox="0 0 16 16" fill="green" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                    </svg>`
 
 var album;
-var pageState = "collect";
+var pageState = "";
 var albumLink = "";
-var numBlanks = 0;
+var numImages = 0;
 var numCrops = 0;
+var currImages = "";
+var albumIsLoading = false;
+var loadingTimeout;
 
 var icloudphoto;
+
+window.addEventListener('focus', pollAlbum);
+
+// Check the album
+// Fired on the window getting focus
+function pollAlbum() {
+  console.log("Checking album");
+  if (albumLink != "") {
+    loadAlbum(albumLink);
+  }
+}
 
 function loadAlbumFromCookie() {
   var cookieAlbum = getCookie("album");
   if (cookieAlbum.length > 0) {
-    $("#albumLink").val(cookieAlbum);
     try {
       loadAlbum(cookieAlbum);
-      $("#loadAlbum").html("Reload Album");
       $("#new_album").hide();
       $("#create").show();
     }
@@ -83,7 +112,7 @@ function getMeta(url, callback) {
     img.onload = function() { callback(this.width, this.height); }
 }
 
-function addPhoto(album, obj) {
+function addImage(album, obj) {
   var ratio = obj.ratio;
   var addData=obj.addData;
   var orientation = "horizontal";
@@ -93,17 +122,20 @@ function addPhoto(album, obj) {
     orientation = "vertical";
   }
   var outerDiv = $(`<div class="card_frame my-auto ${orientation}"></div>`);
+  var anchor = $(`<a href="${albumLink}" target="_blank"></a>`);
   var innerDiv = $(`<div class="gallery_frame ${orientation}" ${addData}> </div>`)
   var img = obj.img;
   $(img).addClass(`gallery_image ${orientation}`);
   innerDiv.append(img);
-  outerDiv.append(innerDiv);
+  anchor.append(innerDiv);
+  outerDiv.append(anchor);
   album.append(outerDiv);
 }
 
 function populateImages(imgStore) {
-  numBlanks = 0;
+  numImages = 0;
   numCrops = 0;
+  album.empty();
   for (const key in imgStore) {
     if (!imgStore[key].blank && imgStore[key].ratio >= 1) {
       var cropError = Math.abs(imgStore[key].ratio - imageRatio);
@@ -111,7 +143,8 @@ function populateImages(imgStore) {
         imgStore[key].addData = "data-crop='1'";
         numCrops++;
       }
-      addPhoto(album, imgStore[key]);
+      numImages++;
+      addImage(album, imgStore[key]);
     };
   }
   for (const key in imgStore) {
@@ -121,39 +154,41 @@ function populateImages(imgStore) {
         imgStore[key].addData = "data-crop='1'";
         numCrops++;
       }
-      addPhoto(album, imgStore[key]);
+      numImages++;
+      addImage(album, imgStore[key]);
     };
   }
   for (const key in imgStore) {
     if (imgStore[key].blank) {
-      numBlanks++;
-      addPhoto(album, imgStore[key]);
+      addImage(album, imgStore[key]);
     };
   }
-  if (numBlanks != 0) {
-    collectStep();
-  } else if (pageState != "collect" && numCrops != 0) {
-    cropStep();
-  }
+  doneLoading();
   // setTimeout(function(){ addFrames(); }, 500);
 }
 
 function populateAlbum(result) {
-  var photos = result;
+  var images = result;
+  var newImages = JSON.stringify(images);
+  if (currImages === newImages) {
+    console.log("No change in album");
+    doneLoading();
+    return;
+  }
+  currImages = newImages;
   var numBlanks = 0;
   var imgStore = new Object();
   var imgCount = 0;
-  if (photos.length < minNumImages) {
-    numBlanks = minNumImages - photos.length;
+  if (images.length < numCards) {
+    numBlanks = numCards - images.length;
   }
-  album.empty();
   if (numBlanks > 0) {
     var i;
     for (i = 0; i < numBlanks; i++) {
-      photos.push(blankImage);
+      images.push(blankImage);
     }
   }
-  photos.forEach(function(item, index){
+  images.forEach(function(item, index){
     var img = new Image();
     img.src = item;
     imgStore[index] = {"img" : img}
@@ -163,28 +198,69 @@ function populateAlbum(result) {
     img.onload = function () {
       imgStore[index].ratio = this.width / this.height;
       imgCount++;
-      if (imgCount == photos.length) {
-        populateImages(imgStore);
+      if (imgCount == images.length) {
+        try {
+          populateImages(imgStore);
+        }
+        catch(e) {
+          console.log(`Error ${e} when loading album.`)
+          doneLoading();
+        }
       }
     }
   })
 }
 
 function getAlbumAjax(url, onSuccess){
+  console.log("Requesting album from server.");
   $.ajax({
     url: url,
     type:"GET",
+    cache: false,
+    timeout: 5000,
     success: onSuccess,
     error: function(error){
+      doneLoading();
       console.log(`Error${error}`);
     }});
+}
+
+function isLoading() {
+  albumIsLoading = true;
+  loadingTimeout = setTimeout(doneLoading, 10000)
+  document.cookie = "album="+albumLink;
+  $("#loadAlbum").html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  <span class="sr-only">Loading...</span>`);
+  $("#albumLink").val(albumLink);
+  $("#your_album").attr("href", albumLink);
+}
+
+function doneLoading() {
+  albumIsLoading = false;
+  clearTimeout(loadingTimeout);
+  $("#loadAlbum").html("Reload album");
+  $("#loadAlbum").removeClass("btn-success");
+  $("#loadAlbum").addClass("btn-primary");
+  if (pageState === "collect" || numImages < numCards) {
+    collectStep();
+    return
+  }
+  if (pageState === "crop" || numCrops != 0) {
+    cropStep();
+    return;
+  }
+  createStep();
 }
 
 function loadAlbum(link) {
   var result = link.match(combinedregex);
   if (result) {
-    document.cookie = "album="+link;
     albumLink = link;
+    if (albumIsLoading) {
+      console.log("Currently checking album.");
+      return;
+    }
+    isLoading();
     if (result[1]) {
       url = googleAlbumAPI + result[1];
       getAlbumAjax(url, populateAlbum);
@@ -192,11 +268,6 @@ function loadAlbum(link) {
       url = icloudAlbumAPI + result[2];
       getAlbumAjax(url, populateAlbum);
     }
-    $("#loadAlbum").html("Reload Album");
-    $("#loadAlbum").removeClass("btn-success");
-    $("#loadAlbum").addClass("btn-primary");
-    $("#albumLink").val(link);
-    $("#your_album").attr("href", link);
   }
   else {
     throw 'InvalidAlbumLink';
@@ -229,37 +300,102 @@ $("#loadAlbum").click(function() {
   }
 });
 
+function collectStep() {
+  $("#create_progress").css("width", "25%");
+  $("#btn_next_step").html("Next step");
+  $("#crop_step").hide();
+  $("#create_step").hide();
+  $("#collect_step").show();
+  if (numImages < numCards) {
+    $("#btn_next_step").addClass("disabled");
+    $("#state_text").html(redX + ` You need ${numCards - numImages} more images.`)
+  } else {
+    $("#btn_next_step").removeClass("disabled");
+    $("#state_text").html(greenCheck + ` Complete album!`)
+  }
+  pageState = "collect";
+}
+
 function cropStep() {
-  $("create_progress").css("width", "50%");
+  var stateText = ""
+  var disabled = false;
+  $("#create_progress").css("width", "50%");
+  $("#btn_next_step").html("Next step");
   $("#create_step").hide();
   $("#collect_step").hide();
   $("#crop_step").show();
-  $('.gallery_frame[data-crop="1"]').addClass('needsCrop');
+  if (numCrops > 0) {
+    $('.gallery_frame[data-crop="1"]').addClass('needsCrop');
+    disabled = true;
+    stateText = redX + ` ${numCrops} images to crop.<br />`;
+  } else {
+    stateText = greenCheck + ` Done cropping!<br />`;
+  }
+  if (numImages > numCards) {
+    disabled = true;
+    stateText += redX + ` ${numCards - numImages} too many images.`;
+  } else {
+    stateText += greenCheck + ` ${numImages} images!`;
+  }
+  if (disabled) {
+    $("#btn_next_step").addClass("disabled");
+  } else {
+    $("#btn_next_step").removeClass("disabled");
+  }
+  $("#state_text").html(stateText);
   pageState = "crop";
 }
 
 function createStep() {
-  $("create_progress").css("width", "75%");
+  var stateText = "";
+  var disabled = true;
   $("#collect_step").hide();
   $("#crop_step").hide();
   $("#create_step").show();
+  $("#btn_next_step").html("Create my cards!");
+  selectedCard = $(".backDesignRadio:checked");
+  if (selectedCard[0]) {
+    disabled = false;
+    stateText += greenCheck + ` Designed!`;
+    $("#create_progress").css("width", "100%");
+  } else {
+    stateText += redX + ` Choose a design.`;
+    $("#create_progress").css("width", "75%");
+  }
+  if (disabled) {
+    $("#btn_next_step").addClass("disabled");
+  } else {
+    $("#btn_next_step").removeClass("disabled");
+  }
+  $("#state_text").html(stateText);
   pageState = "create";
 }
 
-function collectStep() {
-  $("create_progress").css("width", "25%");
-  $("#crop_step").hide();
-  $("#create_step").hide();
-  $("#collect_step").show();
-  pageState = "collect";
-}
-
+$(".backDesignRadio").click(function() {
+  var selectedCard = $(".backDesignRadio:checked");
+  var stateText = "";
+  if (selectedCard[0]) {
+    disabled = false;
+    stateText += greenCheck + ` Designed!`;
+    $("#create_progress").css("width", "100%");
+  } else {
+    stateText += redX + `Choose a design for the back.`;
+  }
+  if (disabled) {
+    $("#btn_next_step").addClass("disabled");
+  } else {
+    $("#btn_next_step").removeClass("disabled");
+  }
+  $("#state_text").html(stateText);
+});
 
 $("#btn_next_step").click(function() {
-  if (pageState == "collect" && numBlanks == 0) {
+  if (pageState === "collect" && numImages >= numCards) {
     cropStep();
-  } else if (pageState == "crop" && numCrops == 0) {
+  } else if (pageState === "crop" && numCrops == 0) {
     createStep();
+  } else if (pageState === "create" && numImages == numCards) {
+    $('#orderModal').modal();
   }
 });
 

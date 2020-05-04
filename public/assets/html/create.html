@@ -19,27 +19,49 @@
 
     <div class="page_wrapper">
 
+      <!-- Modal -->
+      <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Order Form</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              name
+              address
+              credit card number
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+              <button type="button" class="btn btn-primary">Submit order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- START LOAD ALBUM -->
 
-      <div id="new_album" class="row">
-        <div class="col">
+      <div id="new_album">
 
-          <h3>Get Started</h3>
+          <h3>Get Started: Create cards from a photo album</h3>
           <ol class="get_started_list">
-            <li>Create an album with <a href="https://photos.google.com" target="_blank">Google Photos</a>.
+            <li>Create an album with <a href="https://photos.google.com" target="_blank">Google Photos</a> and add at least one photo.
               <a href="https://support.google.com/photos/answer/6128849?hl=en&co=GENIE.Platform%3DDesktop&oco=0" target="_blank">
                 <svg class="bi bi-question-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd"/>
                 </svg>
               </a>
             </li>
-            <li>Add at least one image to the album.
+            <!-- <li>Add at least one image to the album.
               <a href="https://support.google.com/photos/answer/6128849?hl=en&co=GENIE.Platform%3DDesktop&oco=0#autoadd" target="_blank">
                 <svg class="bi bi-question-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd"/>
                 </svg>
               </a>
-            </li>
+            </li> -->
             <li>Get a sharing link (<i class="fa fa-share-alt" aria-hidden="true"></i>) and enter it here.
               <a href="https://support.google.com/photos/answer/6131416?hl=en&co=GENIE.Platform=Desktop#send_linkweb" target="_blank">
                 <svg class="bi bi-question-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +74,6 @@
           <a class="btn btn-success" id="newAlbum" href="javascript:void(0);">
             Load Album
           </a>
-        </div>
       </div>
 
 
@@ -68,15 +89,48 @@
             <h2>Personalize your <br />MOMENTS CARDS</h2>
 
             <div id="collect_step">
-              <h4>Collect 12 images in <a id="your_album" target="_blank">your album</a>.</h4>
+              <h5>Collect 12 images in <a id="your_album" target="_blank">your album</a> on Google Photos.</h5>
             </div>
 
             <div id="crop_step">
-              <h4>Crop the images to a 3:2 ratio (portrait or landscape).</h4>
+              <h5>Go to <a id="your_album" target="_blank">your album</a> in Google Photos and crop the images in to a 3:2 ratio (portrait or landscape).</h5>
+              <h5>The images that need to be cropped are <span class="needsCrop">outlined in red.</span></h5>
             </div>
 
             <div id="create_step">
-              <h4>Create your cards by choosing a design below.</h4>
+              <h5>Select a design for the back.</h5>
+
+              <div class="backDesignForm">
+                <input class="backDesignRadio" type="radio" name="backDesignRadios" id="backDesignRadios1" value="option1">
+                <label class="backDesignRadioLabel" for="backDesignRadios1">
+                  <div class="card_frame my-auto horizontal">
+                    <div class="gallery_frame horizontal" data-crop="0">
+                      <img src="assets/img/B0006.png" class="gallery_image horizontal">
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="backDesignForm">
+                <input class="backDesignRadio" type="radio" name="backDesignRadios" id="backDesignRadios2" value="option2">
+                <label class="backDesignRadioLabel" for="backDesignRadios2">
+                  <div class="card_frame my-auto horizontal">
+                    <div class="gallery_frame horizontal" data-crop="0">
+                      <img src="assets/img/B0008.png" class="gallery_image horizontal">
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="backDesignForm">
+                <input class="backDesignRadio" type="radio" name="backDesignRadios" id="backDesignRadios3" value="option3">
+                <label class="backDesignRadioLabel" for="backDesignRadios3">
+                  <div class="card_frame my-auto horizontal">
+                    <div class="gallery_frame horizontal" data-crop="0">
+                      <img src="assets/img/B0009.png" class="gallery_image horizontal">
+                    </div>
+                  </div>
+                </label>
+              </div>
+
             </div>
           </div>
 
@@ -85,11 +139,15 @@
             <div class="progress">
               <div id="create_progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="next_step text-right">
-    					<a class="btn btn-warning btn-lg" id="btn_next_step" href="javascript:void(0);">
-                Next step
-              </a>
+            <div id="next_step">
+              <div id="state_text"></div>
+              <div id="state_button">
+      					<a class="btn btn-warning" id="btn_next_step" href="javascript:void(0);">
+                  Next step
+                </a>
+              </div>
       			</div>
+
 
           </div>
 

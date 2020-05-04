@@ -106,8 +106,18 @@ li {
 	/* background: orange; */
 }
 
+span.needsCrop {
+	border-radius: 10px;
+	padding: 0 3px 0 3px;
+}
+
 .instruction_text {
 	padding: 5px;
+	flex: 1 1 auto;
+	display: flex;
+	flex-flow: column wrap;
+	align-items: stretch;
+	justify-content: flex-start;
 }
 
 .create_controls {
@@ -123,6 +133,11 @@ li {
 }
 
 #create_step {
+	flex: 1 1 auto;
+	display: flex;
+	flex-flow: column wrap;
+	align-items: flex-start;
+	justify-content: space-between;
 }
 
 .bottom_nav {
@@ -132,12 +147,51 @@ li {
 	width: 100%;
 }
 
-.next_step {
+#next_step {
 	padding: 10px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.backDesignRadio {
+	margin: 0 20px 0 10px;
+	-ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+  transform: scale(1.5);
+}
+
+.backDesignRadioLabel {
+	margin: 0!important;
+}
+
+.backDesignRadio +label .card_frame .gallery_frame  {
+	-moz-box-shadow: 0 0.2rem 0.2rem #808080;
+  -webkit-box-shadow: 0 0.2rem 0.2rem #808080;
+	box-shadow: 0 0.2rem 0.2rem #808080;
+}
+
+.backDesignRadio:checked +label .card_frame .gallery_frame  {
+	-moz-box-shadow: 0 0 0.5rem yellow;
+  -webkit-box-shadow: 0 0 0.5rem yellow;
+	box-shadow: 0 0 0.5rem yellow;
+}
+
+.backDesignForm {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #d3d3d3;
+	padding: 5px 20px 5px 5px;
+	margin: 5px;
+	border-radius: 5px;
+	background: #d3d3d3;
 }
 
 .instructions {
-	flex: 1 0 30vw;
+	flex: 1 0 25vw;
 	background: #ffffff;
 	padding: 0!important;
 	display: flex;
@@ -162,7 +216,7 @@ li {
 .album {
 	margin: 0;
 	padding: 5px;
-	height: 85vh;
+	height: 87vh;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-evenly;
