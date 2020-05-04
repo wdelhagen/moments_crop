@@ -1,3 +1,19 @@
+
+
+/* always show scrollbars */
+
+/* ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+} */
+
+
 /* CREATE PROTOTYPE */
 
 .site-header {
@@ -65,8 +81,7 @@ li {
 }
 
 #albumLink {
-	width: 100%;
-	margin-bottom: 5px;
+	width: 80%;
 }
 
 #newAlbumLink {
@@ -77,15 +92,26 @@ li {
 .load_album {
 	/* position: absolute;
 	margin: 0!important; */
-	background: #D3D3D3;
-	padding: 10px 5px;
+	background: #808080;
+	padding: 10px;
 	/* bottom:0 !important; */
 	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
 }
 
 .needsCrop {
 	border: 3px solid red;
 	/* background: orange; */
+}
+
+.instruction_text {
+	padding: 5px;
+}
+
+.create_controls {
+	padding: 5px;
 }
 
 #collect_step {
@@ -123,12 +149,10 @@ li {
 .gallery {
 	flex: 10 0 50vw;
 	background: #D3D3D3;
-	height: 95vh;
 	/* width: 95vh; */
-	overflow-y: auto;
-	overflow-x: hidden;
-	padding: 5px 15px 5px 15px;
-	min-width: 350px;
+	overflow: hidden;
+	/* padding: 5px 15px 5px 15px; */
+	padding: 0;
 }
 
 .album_wrapper {
@@ -137,9 +161,14 @@ li {
 
 .album {
 	margin: 0;
+	padding: 5px;
+	height: 85vh;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-evenly;
+	overflow-y: auto;
+	overflow-x: hidden;
+	min-width: 350px;
 }
 
 .card_frame {
@@ -169,9 +198,9 @@ li {
 	overflow: hidden;
 	/* transform: rotateX(60deg) rotateY(0deg) rotate(-45deg) scale(1.125);
   transform-style: preserve-3d; */
-	-moz-border-radius:0.9vw;
-	-webkit-border-radius:0.9vw;
-	border-radius:0.9vw;
+	-moz-border-radius:1.35vh;
+	-webkit-border-radius:1.35vh;
+	border-radius:1.35vh;
 }
 
 .gallery_image {

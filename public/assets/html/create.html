@@ -26,7 +26,7 @@
 
           <h3>Get Started</h3>
           <ol class="get_started_list">
-            <li>Create an album with <a href="https://photos.google.com">Google Photos</a>.
+            <li>Create an album with <a href="https://photos.google.com" target="_blank">Google Photos</a>.
               <a href="https://support.google.com/photos/answer/6128849?hl=en&co=GENIE.Platform%3DDesktop&oco=0" target="_blank">
                 <svg class="bi bi-question-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd"/>
@@ -65,40 +65,44 @@
 
 
           <div class="instruction_text">
-            <h2>Your MOMENTS CARDS</h2>
+            <h2>Personalize your <br />MOMENTS CARDS</h2>
 
             <div id="collect_step">
-              <h3>Collect 12 images in <a id="your_album" target="_blank">your album</a>.</h3>
+              <h4>Collect 12 images in <a id="your_album" target="_blank">your album</a>.</h4>
             </div>
 
             <div id="crop_step">
-              <h3>Crop the images to a 3:2 ratio (portrait or landscape).</h3>
+              <h4>Crop the images to a 3:2 ratio (portrait or landscape).</h4>
             </div>
 
             <div id="create_step">
-              <h3>Create your cards by choosing a design below.</h3>
+              <h4>Create your cards by choosing a design below.</h4>
             </div>
           </div>
 
           <div class="create_controls">
+            <b>Progress</b>
+            <div class="progress">
+              <div id="create_progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
             <div class="next_step text-right">
     					<a class="btn btn-warning btn-lg" id="btn_next_step" href="javascript:void(0);">
                 Next step
               </a>
       			</div>
 
-            <div class="load_album text-right">
-    					<input type="text" id="albumLink">
-    					<a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">
-                Load Album
-              </a>
-            </div>
           </div>
 
         </div>
 
 
         <div class="gallery">
+          <div class="load_album text-right">
+            <input type="text" id="albumLink">
+            <a class="btn btn-success" id="loadAlbum" href="javascript:void(0);">
+              Load Album
+            </a>
+          </div>
           <div id="gallery_album" class="album"></div>
         </div>
   		</div>

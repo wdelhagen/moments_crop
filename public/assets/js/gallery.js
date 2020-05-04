@@ -1,21 +1,13 @@
 window.onload = function() {
     'use strict';
 
+    album = $("#gallery_album");
     $("#create").hide();
     $("#crop_step").hide();
     $("#create_step").hide();
 
-
     // test with big uncropped album
     // getAlbumAjax("/album/"+"Mv46AWp44zd8QTLs9", populateAlbum);
-
-    if ($("#gallery_album").length > 0) {
-      album = $("#gallery_album");
-      isCrop = true;
-    } else {
-      album = $("#crop_album");
-      isCrop = true;
-    }
 
     loadAlbumFromCookie();
 
@@ -37,7 +29,10 @@ const blankImage = "assets/img/blank_image.png";
 const minNumImages = 12;
 
 var album;
-var isCrop = false;
+var pageState = "collect";
+var albumLink = "";
+var numBlanks = 0;
+var numCrops = 0;
 
 var icloudphoto;
 
@@ -89,22 +84,16 @@ function getMeta(url, callback) {
 }
 
 function addPhoto(album, obj) {
-  ratio = obj.ratio;
-  var addClass="";
-  var cropError = 0;
+  var ratio = obj.ratio;
+  var addData=obj.addData;
   var orientation = "horizontal";
   if (ratio >= 1) {
-    cropError = Math.abs(ratio - imageRatio);
     orientation = "horizontal";
   } else {
-    cropError = Math.abs(1/ratio - imageRatio);
     orientation = "vertical";
   }
-  if (isCrop && cropError > imageRatioMargin) {
-    addClass += "needsCrop";
-  }
   var outerDiv = $(`<div class="card_frame my-auto ${orientation}"></div>`);
-  var innerDiv = $(`<div class="gallery_frame ${orientation} ${addClass}"> </div>`)
+  var innerDiv = $(`<div class="gallery_frame ${orientation}" ${addData}> </div>`)
   var img = obj.img;
   $(img).addClass(`gallery_image ${orientation}`);
   innerDiv.append(img);
@@ -113,20 +102,38 @@ function addPhoto(album, obj) {
 }
 
 function populateImages(imgStore) {
+  numBlanks = 0;
+  numCrops = 0;
   for (const key in imgStore) {
     if (!imgStore[key].blank && imgStore[key].ratio >= 1) {
+      var cropError = Math.abs(imgStore[key].ratio - imageRatio);
+      if (cropError > imageRatioMargin) {
+        imgStore[key].addData = "data-crop='1'";
+        numCrops++;
+      }
       addPhoto(album, imgStore[key]);
     };
   }
   for (const key in imgStore) {
     if (!imgStore[key].blank && imgStore[key].ratio < 1) {
+      var cropError = Math.abs(1/imgStore[key].ratio - imageRatio);
+      if (cropError > imageRatioMargin) {
+        imgStore[key].addData = "data-crop='1'";
+        numCrops++;
+      }
       addPhoto(album, imgStore[key]);
     };
   }
   for (const key in imgStore) {
     if (imgStore[key].blank) {
+      numBlanks++;
       addPhoto(album, imgStore[key]);
     };
+  }
+  if (numBlanks != 0) {
+    collectStep();
+  } else if (pageState != "collect" && numCrops != 0) {
+    cropStep();
   }
   // setTimeout(function(){ addFrames(); }, 500);
 }
@@ -177,6 +184,7 @@ function loadAlbum(link) {
   var result = link.match(combinedregex);
   if (result) {
     document.cookie = "album="+link;
+    albumLink = link;
     if (result[1]) {
       url = googleAlbumAPI + result[1];
       getAlbumAjax(url, populateAlbum);
@@ -221,11 +229,39 @@ $("#loadAlbum").click(function() {
   }
 });
 
-$("#btn_next_step").click(function() {
+function cropStep() {
+  $("create_progress").css("width", "50%");
+  $("#create_step").hide();
   $("#collect_step").hide();
   $("#crop_step").show();
-});
+  $('.gallery_frame[data-crop="1"]').addClass('needsCrop');
+  pageState = "crop";
+}
 
+function createStep() {
+  $("create_progress").css("width", "75%");
+  $("#collect_step").hide();
+  $("#crop_step").hide();
+  $("#create_step").show();
+  pageState = "create";
+}
+
+function collectStep() {
+  $("create_progress").css("width", "25%");
+  $("#crop_step").hide();
+  $("#create_step").hide();
+  $("#collect_step").show();
+  pageState = "collect";
+}
+
+
+$("#btn_next_step").click(function() {
+  if (pageState == "collect" && numBlanks == 0) {
+    cropStep();
+  } else if (pageState == "crop" && numCrops == 0) {
+    createStep();
+  }
+});
 
 
 $("#newAlbum").click(function() {
