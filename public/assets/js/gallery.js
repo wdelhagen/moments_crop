@@ -333,7 +333,7 @@ function cropStep() {
   }
   if (numImages > numCards) {
     disabled = true;
-    stateText += redX + ` ${numCards - numImages} too many images.`;
+    stateText += redX + ` ${numImages - numCards} too many images.`;
   } else {
     stateText += greenCheck + ` ${numImages} images!`;
   }
