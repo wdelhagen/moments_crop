@@ -66,7 +66,7 @@ window.addEventListener('focus', pollAlbum);
 // Check the album
 // Fired on the window getting focus
 function pollAlbum() {
-  console.log("Checking album");
+  // console.log("Checking album");
   if (albumLink != "") {
     loadAlbum(albumLink);
   }
@@ -201,7 +201,7 @@ function populateAlbum(result) {
   var images = result;
   var newImages = JSON.stringify(images);
   if (currImages === newImages) {
-    console.log("No change in album");
+    // console.log("No change in album");
     doneLoading();
     return;
   }
@@ -242,7 +242,7 @@ function populateAlbum(result) {
 }
 
 function getAlbumAjax(url, onSuccess){
-  console.log("Requesting album from server.");
+  // console.log("Requesting album from server.");
   $.ajax({
     url: url,
     type:"GET",
@@ -287,7 +287,7 @@ function loadAlbum(link) {
   if (result) {
     albumLink = link;
     if (albumIsLoading) {
-      console.log("Currently checking album.");
+      console.log("Request canceled -- already checking album.");
       return;
     }
     isLoading();
