@@ -352,7 +352,7 @@ function createStep() {
   $("#collect_step").hide();
   $("#crop_step").hide();
   $("#create_step").show();
-  $("#btn_next_step").html("Create my cards!");
+  $("#btn_next_step").html("Order my cards");
   selectedCard = $(".backDesignRadio:checked");
   if (selectedCard[0]) {
     disabled = false;
