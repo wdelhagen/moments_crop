@@ -225,22 +225,59 @@ span.needsCrop {
 	min-width: 350px;
 }
 
+.card_container {
+	perspective: 1000px;
+	flex: 0 1 auto;
+	padding: 0!important;
+	position: relative;
+	background: transparent;
+}
+
+.card_container.horizontal {
+	width: 27.5vh!important;
+	height: 18.5vh!important;
+	min-width: 185px;
+	min-height: 125px;
+}
+
+.card_container.vertical {
+	width: 18.5vh!important;
+	height: 27.5vh!important;
+	min-width: 125px;
+	min-height: 185px;
+}
+
+
 .card_frame {
 	flex: 0 1 auto;
 	padding: 0!important;
+	position: relative;
+	background: transparent;
+	-webkit-transition: transform 0.5s; /* Safari and Chrome */
+ 	transition: transform 0.5s;
+	transform-style: preserve-3d;
 }
 
 .card_frame.horizontal {
 	width: 27.5vh!important;
+	height: 18.5vh!important;
 	min-width: 185px;
+	min-height: 125px;
 }
 
 .card_frame.vertical {
-	width: 20vh!important;
+	width: 18.5vh!important;
+	height: 27.5vh!important;
 	min-width: 125px;
+	min-height: 185px;
+}
+
+.card_anchor {
+	position: relative;
 }
 
 .gallery_frame {
+	position: absolute;
 	padding: 0;
 	margin: 2% auto;
 	background-position: 0px 0px, 10px 10px;
@@ -255,13 +292,75 @@ span.needsCrop {
 	-moz-border-radius:1.35vh;
 	-webkit-border-radius:1.35vh;
 	border-radius:1.35vh;
+	-webkit-backface-visibility: hidden; /* Safari */
+	backface-visibility: hidden;
+}
+
+@keyframes cardFlip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  20% {
+    transform: rotateY(90deg);
+  }
+  35% {
+    transform: rotateY(180deg);
+  }
+	65% {
+    transform: rotateY(180deg);
+  }
+	80% {
+    transform: rotateY(270deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes hoverFlip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  20% {
+    transform: rotateY(90deg);
+  }
+  40% {
+    transform: rotateY(180deg);
+  }
+	60% {
+    transform: rotateY(180deg);
+  }
+	80% {
+    transform: rotateY(270deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.card_container:hover .card_frame.animate {
+  /* transform: rotateY(180deg); */
+	animation: hoverFlip 0.75s forwards linear;
+}
+
+.card_frame.flip {
+	/* transform: rotateY(180deg); */
+	animation: cardFlip 1.5s forwards linear;
+}
+
+.gallery_frame.card_back {
+	/* rotating the back face of the card */
+  -ms-transform: rotateY(-180deg); /* IE 9 */
+  -webkit-transform: rotateY(-180deg); /* Safari */
+  transform: rotateY(-180deg);
 }
 
 .gallery_image {
-	position: relative;
-	top: 50%;
+	position: absolute;
+	/* backface-visibility: hidden; */
+	/* top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%); */
 }
 
 .gallery_image.horizontal {
@@ -286,6 +385,16 @@ span.needsCrop {
 	height: 27vh;
 	min-width: 120px;
 	min-height: 180px;
+}
+
+.gallery_frame.horizontal.animate {
+	background-size: 27.5vh auto;
+	background-position: center;
+}
+
+.gallery_frame.vertical.animate {
+	background-size: auto 18.5vh;
+	background-position: center;
 }
 
 /* END GALLERY PROTOTYPE */

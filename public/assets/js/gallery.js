@@ -15,6 +15,8 @@ window.onload = function() {
     // DEV
     // createStep();
 
+
+
 }
 
 // https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
@@ -34,6 +36,7 @@ const test_uncropped_link = "https://photos.app.goo.gl/Mv46AWp44zd8QTLs9"
 const imageRatio = 1.5;
 const imageRatioMargin = 0.1;
 const blankImage = "assets/img/blank_image.png";
+const cardBack = "assets/img/B0006.png";
 const numCards = 12;
 
 const redX = `<svg class="bi bi-x-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
@@ -53,6 +56,8 @@ var numCrops = 0;
 var currImages = "";
 var albumIsLoading = false;
 var loadingTimeout;
+var imgStore = new Object();
+var flipTimeouts = new Array();
 
 var icloudphoto;
 
@@ -114,22 +119,47 @@ function getMeta(url, callback) {
 
 function addImage(album, obj) {
   var ratio = obj.ratio;
-  var addData=obj.addData;
+  var addData="";
+  addData = obj.addData;
   var orientation = "horizontal";
   if (ratio >= 1) {
     orientation = "horizontal";
   } else {
     orientation = "vertical";
   }
-  var outerDiv = $(`<div class="card_frame my-auto ${orientation}"></div>`);
-  var anchor = $(`<a href="${albumLink}" target="_blank"></a>`);
-  var innerDiv = $(`<div class="gallery_frame ${orientation}" ${addData}> </div>`)
-  var img = obj.img;
-  $(img).addClass(`gallery_image ${orientation}`);
-  innerDiv.append(img);
-  anchor.append(innerDiv);
+  var containerDiv = $(`<div class="card_container ${orientation}"></div>`);
+  var outerDiv = $(`<div class="card_frame ${orientation}"></div>`);
+  var anchor = $(`<a class="card_anchor" href="${albumLink}" target="_blank"></a>`);
+  var cardFrontDiv = $(`<div class="gallery_frame ${orientation} card_front" ${addData}> </div>`)
+  var imgFront = obj.img;
+  $(imgFront).addClass(`gallery_image ${orientation}`);
+  cardFrontDiv.append(imgFront);
+  anchor.append(cardFrontDiv);
   outerDiv.append(anchor);
-  album.append(outerDiv);
+  containerDiv.append(outerDiv);
+  album.append(containerDiv);
+}
+
+function addBack(elt, backID) {
+  var orientation = "";
+  if ($(elt).hasClass("horizontal")) {
+    orientation = "horizontal";
+  } else {
+    orientation = "vertical";
+  }
+  var cardBackDiv = $(`<div class="gallery_frame ${orientation} animate card_back"> </div>`)
+  var imgBack = new Image();
+  imgBack.src = `assets/img/${backID}_${orientation}.png`;
+  $(imgBack).addClass(`gallery_image ${orientation}`);
+  cardBackDiv.append(imgBack);
+  anchor = $(elt).children("a")[0];
+  $(anchor).append(cardBackDiv);
+}
+
+function addBacks(backID) {
+  $(".gallery").find(".card_frame").each(function () {
+    addBack(this, backID)
+  });
 }
 
 function populateImages(imgStore) {
@@ -177,7 +207,7 @@ function populateAlbum(result) {
   }
   currImages = newImages;
   var numBlanks = 0;
-  var imgStore = new Object();
+  for (var item in imgStore) delete imgStore[item];
   var imgCount = 0;
   if (images.length < numCards) {
     numBlanks = numCards - images.length;
@@ -346,6 +376,30 @@ function cropStep() {
   pageState = "crop";
 }
 
+function addBackgroundImages() {
+  src = $(this).find('img').attr('src');
+  $(this).find('img').hide();
+  // $(this).addClass("animate");
+  $(this).css("background-image", `url("${src}")`);
+  $(this).css("background-size", "cover");
+}
+
+function doFlip(index) {
+  delay = 100*index;
+  var t1, t2;
+  t1 = setTimeout(function() {
+    $(this).addClass("flip")
+  }.bind(this), delay);
+  t2 = setTimeout(function() {
+    $(this).removeClass("flip")
+  }.bind(this), 2500+delay);
+  flipTimeouts.push(t1, t2);
+}
+
+function flipAll() {
+  $(".gallery").find(".card_frame").each(doFlip);
+}
+
 function createStep() {
   var stateText = "";
   var disabled = true;
@@ -368,16 +422,34 @@ function createStep() {
     $("#btn_next_step").removeClass("disabled");
   }
   $("#state_text").html(stateText);
+  $(".gallery").find(".gallery_frame.card_front").each(addBackgroundImages);
   pageState = "create";
 }
 
+function addAnimation () {
+  $(".gallery").find(".card_frame", ".gallery_frame").addClass("animate");
+}
+
+function interruptFlip() {
+  while (flipTimeouts.length >0) {
+    var elt = flipTimeouts.pop();
+    clearTimeout(elt);
+  }
+  $(".gallery").find(".card_frame").removeClass("flip");
+}
+
 $(".backDesignRadio").click(function() {
-  var selectedCard = $(".backDesignRadio:checked");
+  var selectedCard = $(".backDesignRadio:checked")[0];
   var stateText = "";
-  if (selectedCard[0]) {
+  if (selectedCard) {
+    interruptFlip();
+    backID = $(selectedCard).val();
     disabled = false;
     stateText += greenCheck + ` Designed!`;
     $("#create_progress").css("width", "100%");
+    addAnimation();
+    addBacks(backID);
+    flipAll();
   } else {
     stateText += redX + `Choose a design for the back.`;
   }
