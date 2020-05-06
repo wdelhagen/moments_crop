@@ -14,8 +14,24 @@ var rp = require('request-promise-native');
 var config = require('config');
 var request_lib = require('request');
 var Queue = require('promise-queue');
-var level = require('level');
 var _chunk = require('lodash.chunk');
+
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
  // Kaila Album https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
@@ -70,6 +86,7 @@ const port = process.env.PORT || "8000";
 
 app.use('/', express.static('public'));
 app.use(express.static(path.join(__dirname, "public")));
+app.set('port', process.env.PORT || 8000);
 
 // authorize CORS (for demo only)
 app.use(function(req, res, next) {
@@ -115,6 +132,14 @@ app.get("/gallery", (req, res) => {
 
 app.get("/create", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/create.html'));
+});
+
+app.post("/submit_order", (req, res) => {
+
+
+
+ // Send response (and email them)
+
 });
 
 app.get('/icloudalbum/:id', async function(request, response) {
