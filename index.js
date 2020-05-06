@@ -16,22 +16,22 @@ var request_lib = require('request');
 var Queue = require('promise-queue');
 var _chunk = require('lodash.chunk');
 
-const { Client } = require('pg');
-
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+// const { Client } = require('pg');
+//
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: true,
+// });
+//
+// client.connect();
+//
+// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log(JSON.stringify(row));
+//   }
+//   client.end();
+// });
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
  // Kaila Album https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
@@ -135,7 +135,7 @@ app.get("/create", (req, res) => {
 });
 
 app.post("/submit_order", (req, res) => {
-
+  console.log(req.body)
 
 
  // Send response (and email them)

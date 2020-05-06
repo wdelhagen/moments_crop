@@ -65,6 +65,12 @@ li {
 	justify-content: center;
 }
 
+/* ORDER MODAL */
+
+#recipient {
+	display: none;
+}
+
 /* CREATE BOX */
 
 #create {

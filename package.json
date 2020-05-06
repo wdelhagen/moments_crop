@@ -13,32 +13,24 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.26.7",
-    "cropperjs": "^1.5.6",
-    "nodemon": "^2.0.2",
-    "minimist": ">=1.2.2",
-    "acorn": ">=5.7.4",
-    "kind-of": ">=6.0.3"
+    "nodemon": "^2.0.2"
   },
   "dependencies": {
     "acorn": ">=5.7.4",
     "axios": "^0.19.2",
     "config": "^3.3.1",
     "express": "^4.17.1",
-    "jquery-cropper": "^1.0.1",
     "kind-of": ">=6.0.3",
-    "level": "^6.0.1",
-    "level-promisify": "^2.0.1",
     "lodash.chunk": "^4.2.0",
     "minimist": ">=1.2.2",
     "pg": "^8.0.3",
     "promise-queue": "^2.2.5",
-    "pug": "^2.0.4",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
     "xmlhttprequest": "^1.8.0"
   },
   "engines": {
-    "node": "13.8.0",
-    "npm": "6.13.7"
+    "node": "14.1.0",
+    "npm": "6.14.4"
   }
 }

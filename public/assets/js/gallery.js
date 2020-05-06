@@ -13,7 +13,8 @@ window.onload = function() {
     loadAlbumFromCookie();
 
     // DEV
-    // createStep();
+    createStep();
+    $('#orderModal').modal();
 
 
 
@@ -58,6 +59,7 @@ var albumIsLoading = false;
 var loadingTimeout;
 var imgStore = new Object();
 var flipTimeouts = new Array();
+var backID = "";
 
 var icloudphoto;
 
@@ -467,7 +469,17 @@ $("#btn_next_step").click(function() {
   } else if (pageState === "crop" && numCrops == 0) {
     createStep();
   } else if (pageState === "create" && numImages == numCards) {
+    $("#submitAlbumLink").val(albumLink);
+    $("#submitBackID").val(backID);
     $('#orderModal').modal();
+  }
+});
+
+$("#is_gift").change(function() {
+  if ($(this).prop("checked") == true) {
+    $("#recipient").show();
+  } else {
+    $("#recipient").hide();
   }
 });
 
