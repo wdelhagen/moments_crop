@@ -13,8 +13,8 @@ window.onload = function() {
     loadAlbumFromCookie();
 
     // DEV
-    createStep();
-    $('#orderModal').modal();
+    // createStep();
+    // $('#orderModal').modal();
     // cropStep();
 }
 
