@@ -17,15 +17,25 @@ var config = require('config');
 var request_lib = require('request');
 var Queue = require('promise-queue');
 var _chunk = require('lodash.chunk');
+var pg_ssl = true;
 
-console.log(`DB connection string = "${process.env.DATABASE_URL}"`);
+if (process.env.IS_LOCAL === 'true') {
+  pg_ssl = false;
+}
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: true,
+  ssl: pg_ssl,
 });
 
 client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+});
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
  // Kaila Album https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
