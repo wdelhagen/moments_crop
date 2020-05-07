@@ -107,14 +107,19 @@ li {
 	justify-content: space-between;
 }
 
-.needsCrop {
-	border: 3px solid red;
-	/* background: orange; */
+.gallery_frame.needsCrop {
+	-moz-box-shadow: 0 0 0.1rem 0.25rem red;
+  -webkit-box-shadow: 0 0 0.1rem 0.25rem red;
+	box-shadow: 0 0 0.1rem 0.25rem red;
 }
 
-span.needsCrop {
+#crop_step .needsCrop {
 	border-radius: 10px;
 	padding: 0 3px 0 3px;
+	-moz-box-shadow: 0 0 0.25rem 0.25rem red;
+  -webkit-box-shadow: 0 0 0.25rem 0.25rem red;
+	box-shadow: 0 0 0.25rem 0.25rem red;
+	width: 90%;
 }
 
 .instruction_text {
@@ -179,9 +184,9 @@ span.needsCrop {
 }
 
 .backDesignRadio:checked +label .card_frame .gallery_frame  {
-	-moz-box-shadow: 0 0 0.5rem yellow;
-  -webkit-box-shadow: 0 0 0.5rem yellow;
-	box-shadow: 0 0 0.5rem yellow;
+	-moz-box-shadow: 0 0 0.5rem 0.2rem yellow;
+  -webkit-box-shadow: 0 0 0.5rem 0.2rem yellow;
+	box-shadow: 0 0 0.5rem 0.2rem yellow;
 }
 
 .backDesignForm {
@@ -237,22 +242,8 @@ span.needsCrop {
 	padding: 0!important;
 	position: relative;
 	background: transparent;
+	margin: 5px;
 }
-
-.card_container.horizontal {
-	width: 27.5vh!important;
-	height: 18.5vh!important;
-	min-width: 185px;
-	min-height: 125px;
-}
-
-.card_container.vertical {
-	width: 18.5vh!important;
-	height: 27.5vh!important;
-	min-width: 125px;
-	min-height: 185px;
-}
-
 
 .card_frame {
 	flex: 0 1 auto;
@@ -264,28 +255,56 @@ span.needsCrop {
 	transform-style: preserve-3d;
 }
 
-.card_frame.horizontal {
+.card_frame.horizontal, .card_container.horizontal {
 	width: 27.5vh!important;
 	height: 18.5vh!important;
 	min-width: 185px;
 	min-height: 125px;
 }
 
-.card_frame.vertical {
+.card_frame.vertical, .card_container.vertical {
 	width: 18.5vh!important;
 	height: 27.5vh!important;
 	min-width: 125px;
 	min-height: 185px;
 }
 
-.card_anchor {
-	position: relative;
+.gallery_image {
+	position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gallery_image.horizontal {
+	width: 27.5vh!important;
+	min-width: 185px;
+}
+
+.gallery_image.vertical {
+	height: 27.5vh!important;
+	min-height: 185px;
+}
+
+.gallery_frame.horizontal {
+	height: 18vh;
+	width: 27vh;
+	min-height: 120px;
+	min-width: 180px;
+}
+
+.gallery_frame.vertical {
+	width: 18vh;
+	height: 27vh;
+	min-width: 120px;
+	min-height: 180px;
 }
 
 .gallery_frame {
 	position: absolute;
-	padding: 0;
-	margin: 2% auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 	background-position: 0px 0px, 10px 10px;
   background-size: 20px 20px;
   background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
@@ -293,14 +312,24 @@ span.needsCrop {
   -webkit-box-shadow: 0 .5rem 1rem #808080;
 	box-shadow: 0 .5rem 1rem #808080;
 	overflow: hidden;
-	/* transform: rotateX(60deg) rotateY(0deg) rotate(-45deg) scale(1.125);
-  transform-style: preserve-3d; */
 	-moz-border-radius:1.35vh;
 	-webkit-border-radius:1.35vh;
 	border-radius:1.35vh;
 	-webkit-backface-visibility: hidden; /* Safari */
 	backface-visibility: hidden;
 }
+
+/* DEPRECATED: deal with image load issue in animation */
+
+/* .gallery_frame.horizontal.animate {
+	background-size: 27.5vh auto;
+	background-position: center;
+}
+
+.gallery_frame.vertical.animate {
+	background-size: auto 18.5vh;
+	background-position: center;
+} */
 
 @keyframes cardFlip {
   0% {
@@ -344,68 +373,23 @@ span.needsCrop {
   }
 }
 
+/* HOVER FLIP */
 .card_container:hover .card_frame.animate {
-  /* transform: rotateY(180deg); */
 	animation: hoverFlip 0.75s forwards linear;
 }
 
 .card_frame.flip {
-	/* transform: rotateY(180deg); */
 	animation: cardFlip 1.5s forwards linear;
 }
 
 .gallery_frame.card_back {
 	/* rotating the back face of the card */
-  -ms-transform: rotateY(-180deg); /* IE 9 */
-  -webkit-transform: rotateY(-180deg); /* Safari */
-  transform: rotateY(-180deg);
-}
-
-.gallery_image {
-	position: absolute;
-	/* backface-visibility: hidden; */
-	/* top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%); */
-}
-
-.gallery_image.horizontal {
-	width: 27.5vh;
-	min-width: 185px;
-}
-
-.gallery_image.vertical {
-	height: 27.5vh;
-	min-height: 185px;
-}
-
-.gallery_frame.horizontal {
-	height: 18vh;
-	width: 27vh;
-	min-height: 120px;
-	min-width: 180px;
-}
-
-.gallery_frame.vertical {
-	width: 18vh;
-	height: 27vh;
-	min-width: 120px;
-	min-height: 180px;
-}
-
-.gallery_frame.horizontal.animate {
-	background-size: 27.5vh auto;
-	background-position: center;
-}
-
-.gallery_frame.vertical.animate {
-	background-size: auto 18.5vh;
-	background-position: center;
+  -ms-transform: translate(-50%, -50%) rotateY(-180deg); /* IE 9 */
+  -webkit-transform: translate(-50%, -50%) rotateY(-180deg); /* Safari */
+  transform: translate(-50%, -50%) rotateY(-180deg);
 }
 
 /* END GALLERY PROTOTYPE */
-
-
 
 
 .crop_gif {

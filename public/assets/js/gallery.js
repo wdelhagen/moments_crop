@@ -13,17 +13,16 @@ window.onload = function() {
     loadAlbumFromCookie();
 
     // DEV
-    // createStep();
-    // $('#orderModal').modal();
-
-
-
+    createStep();
+    $('#orderModal').modal();
+    // cropStep();
 }
 
 // https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
 
 // 2 card album:  https://photos.app.goo.gl/xxUP9zWShUPUxGVA6
 // Complete & cropped: https://photos.app.goo.gl/ZjZEWmW2bEDtJQrm6
+// Crop test: https://photos.app.goo.gl/Mv46AWp44zd8QTLs9
 
 
 // const albumAPI = "/album/"
@@ -39,6 +38,7 @@ const imageRatioMargin = 0.1;
 const blankImage = "assets/img/blank_image.png";
 const cardBack = "assets/img/B0006.png";
 const numCards = 12;
+const flipDelayms = 150;
 
 const redX = `<svg class="bi bi-x-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
@@ -136,26 +136,32 @@ function addImage(album, obj) {
   var imgFront = obj.img;
   $(imgFront).addClass(`gallery_image ${orientation}`);
   cardFrontDiv.append(imgFront);
-  anchor.append(cardFrontDiv);
-  outerDiv.append(anchor);
-  containerDiv.append(outerDiv);
+  outerDiv.append(cardFrontDiv);
+  anchor.append(outerDiv);
+  containerDiv.append(anchor);
   album.append(containerDiv);
 }
 
 function addBack(elt, backID) {
   var orientation = "";
+  var imgURL = "";
   if ($(elt).hasClass("horizontal")) {
     orientation = "horizontal";
   } else {
     orientation = "vertical";
   }
-  var cardBackDiv = $(`<div class="gallery_frame ${orientation} animate card_back"> </div>`)
+  imgURL = `assets/img/${backID}_${orientation}.png`;
   var imgBack = new Image();
-  imgBack.src = `assets/img/${backID}_${orientation}.png`;
-  $(imgBack).addClass(`gallery_image ${orientation}`);
+  imgBack.src = imgURL;
+  $(imgBack).addClass(`gallery_image ${orientation} card_back`);
+  var cardBackDiv = $(`<div class="gallery_frame ${orientation} animate card_back"> </div>`)
   cardBackDiv.append(imgBack);
-  anchor = $(elt).children("a")[0];
-  $(anchor).append(cardBackDiv);
+  // if it already exists, just change the img src
+  var currDiv = $(elt).find(".gallery_frame.card_back")
+  if (currDiv.length != 0) {
+    $(currDiv).remove();
+  }
+  $(elt).append(cardBackDiv);
 }
 
 function addBacks(backID) {
@@ -379,15 +385,15 @@ function cropStep() {
 }
 
 function addBackgroundImages() {
-  src = $(this).find('img').attr('src');
-  $(this).find('img').hide();
-  // $(this).addClass("animate");
-  $(this).css("background-image", `url("${src}")`);
-  $(this).css("background-size", "cover");
+  // src = $(this).find('img').attr('src');
+  // $(this).find('img').hide();
+  // // $(this).addClass("animate");
+  // $(this).css("background-image", `url("${src}")`);
+  // $(this).css("background-size", "cover");
 }
 
 function doFlip(index) {
-  delay = 100*index;
+  delay = flipDelayms*index;
   var t1, t2;
   t1 = setTimeout(function() {
     $(this).addClass("flip")
@@ -446,11 +452,11 @@ $(".backDesignRadio").click(function() {
   if (selectedCard) {
     interruptFlip();
     backID = $(selectedCard).val();
+    addBacks(backID);
     disabled = false;
     stateText += greenCheck + ` Designed!`;
     $("#create_progress").css("width", "100%");
     addAnimation();
-    addBacks(backID);
     flipAll();
   } else {
     stateText += redX + `Choose a design for the back.`;
@@ -469,8 +475,8 @@ $("#btn_next_step").click(function() {
   } else if (pageState === "crop" && numCrops == 0) {
     createStep();
   } else if (pageState === "create" && numImages == numCards) {
-    $("#submitAlbumLink").val(albumLink);
-    $("#submitBackID").val(backID);
+    $("#album_link").val(albumLink);
+    $("#back_id").val(backID);
     $('#orderModal').modal();
   }
 });

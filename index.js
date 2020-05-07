@@ -9,6 +9,8 @@ const path = require("path");
 
 const axios = require('axios');
 
+const { Client } = require('pg');
+
 // iCloud albums
 var rp = require('request-promise-native');
 var config = require('config');
@@ -16,22 +18,14 @@ var request_lib = require('request');
 var Queue = require('promise-queue');
 var _chunk = require('lodash.chunk');
 
-// const { Client } = require('pg');
-//
-// const client = new Client({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: true,
-// });
-//
-// client.connect();
-//
-// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-//   if (err) throw err;
-//   for (let row of res.rows) {
-//     console.log(JSON.stringify(row));
-//   }
-//   client.end();
-// });
+console.log(`DB connection string = "${process.env.DATABASE_URL}"`);
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
  // Kaila Album https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
@@ -87,6 +81,7 @@ const port = process.env.PORT || "8000";
 app.use('/', express.static('public'));
 app.use(express.static(path.join(__dirname, "public")));
 app.set('port', process.env.PORT || 8000);
+app.use(express.urlencoded())
 
 // authorize CORS (for demo only)
 app.use(function(req, res, next) {
@@ -134,13 +129,98 @@ app.get("/create", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/create.html'));
 });
 
-app.post("/submit_order", (req, res) => {
-  console.log(req.body)
+app.get("/testdb/:str", async (req, res) => {
+
+  var str = req.params.str
+  console.log(`str = ${str}`);
+
+  const text = 'INSERT INTO public.test_table(test_string) VALUES($1) RETURNING *'
+  const values = [str]
+
+  // async/await
+  try {
+    const result = await client.query(text, values)
+    console.log(result.rows[0])
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  } catch (err) {
+    console.log(err.stack)
+  }
 
 
- // Send response (and email them)
+ res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
+});
+
+app.post("/submit_order", async (req, res) => {
+  // console.log(req)
+
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const is_gift = req.body.is_gift || false;
+  const gift_recipient = req.body.gift_recipient;
+  const address = req.body.address;
+  const address2 = req.body.address2;
+  const city = req.body.city;
+  const state = req.body.state;
+  const zip = req.body.zip;
+  const notes = req.body.notes;
+  const album_link = req.body.album_link;
+  const back_id = req.body.back_id;
+  const now = new Date();
+
+  const text = `INSERT INTO public.orders (
+                  first_name,
+                  last_name,
+                  email,
+                  is_gift,
+                  gift_recipient,
+                  ship_address,
+                  ship_address2,
+                  ship_city,
+                  ship_state,
+                  ship_zip,
+                  notes,
+                  album_link,
+                  back_id,
+                  created_on)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
+  const values = [firstName, lastName, email, is_gift, gift_recipient, address, address2, city, state, zip, notes, album_link, back_id, now];
+
+  // async/await
+  try {
+    const result = await client.query(text, values)
+    // console.log(result.rows[0])
+    res.json(result.rows[0]);
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  } catch (err) {
+    console.log(err.stack)
+    res.json(err);
+  }
+
+  // Send response (and email them)
+  // res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
+});
+
+app.get("/check_order/:ext_order_id", async (req, res) => {
+
+  var ext_order_id = req.params.ext_order_id
+  console.log(`ext_order_id = ${ext_order_id}`);
+
+  const text = 'SELECT * FROM public.orders WHERE ext_order_id=$1;'
+  const values = [ext_order_id]
+
+  // async/await
+  try {
+    const result = await client.query(text, values)
+    // console.log(result.rows[0])
+    res.json(result.rows[0]);
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  } catch (err) {
+    console.log(err.stack)
+  }
 
 });
+
 
 app.get('/icloudalbum/:id', async function(request, response) {
 
