@@ -23,6 +23,8 @@ if (process.env.IS_LOCAL === 'true') {
   pg_ssl = false;
 }
 
+console.log(`DB connection string: "${process.env.DATABASE_URL}"`)
+
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: pg_ssl,
@@ -30,12 +32,12 @@ const client = new Client({
 
 client.connect();
 
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-});
+// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log(JSON.stringify(row));
+//   }
+// });
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
  // Kaila Album https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
