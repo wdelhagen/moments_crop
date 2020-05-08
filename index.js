@@ -9,7 +9,7 @@ const path = require("path");
 
 const axios = require('axios');
 
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
 // iCloud albums
 var rp = require('request-promise-native');
@@ -17,27 +17,13 @@ var config = require('config');
 var request_lib = require('request');
 var Queue = require('promise-queue');
 var _chunk = require('lodash.chunk');
-var pg_ssl = true;
-
-if (process.env.IS_LOCAL === 'true') {
-  pg_ssl = false;
-}
 
 console.log(`DB connection string: "${process.env.DATABASE_URL}"`)
 
-const client = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: pg_ssl,
+  ssl: (process.env.IS_LOCAL) ? false : { rejectUnauthorized: false },
 });
-
-client.connect();
-
-// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-//   if (err) throw err;
-//   for (let row of res.rows) {
-//     console.log(JSON.stringify(row));
-//   }
-// });
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
  // Kaila Album https://www.icloud.com/sharedalbum/#B0k532ODWGQsi8U
@@ -141,7 +127,24 @@ app.get("/create", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/create.html'));
 });
 
+app.get('/db', async (req, res) => {
+  try {
+    const client = await pool.connect()
+    const result = await client.query('SELECT * FROM orders');
+    const results = { 'results': (result) ? result.rows : null};
+    res.json(results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+
+
 app.get("/testdb/:str", async (req, res) => {
+
+  const client = await pool.connect()
 
   var str = req.params.str
   console.log(`str = ${str}`);
@@ -153,6 +156,7 @@ app.get("/testdb/:str", async (req, res) => {
   try {
     const result = await client.query(text, values)
     console.log(result.rows[0])
+    client.release();
     // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
   } catch (err) {
     console.log(err.stack)
@@ -164,6 +168,8 @@ app.get("/testdb/:str", async (req, res) => {
 
 app.post("/submit_order", async (req, res) => {
   // console.log(req)
+
+  const client = await pool.connect()
 
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -203,6 +209,7 @@ app.post("/submit_order", async (req, res) => {
     const result = await client.query(text, values)
     // console.log(result.rows[0])
     res.json(result.rows[0]);
+    client.release();
     // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
   } catch (err) {
     console.log(err.stack)
