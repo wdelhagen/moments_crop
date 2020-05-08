@@ -118,59 +118,40 @@ app.get("/cropper", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/cropper.html'));
 });
 
-app.get("/collect", (req, res) => {
- res.sendFile(path.join(__dirname + '/public/assets/html/collect.html'));
-});
-
-app.get("/crop", (req, res) => {
- res.sendFile(path.join(__dirname + '/public/assets/html/crop.html'));
-});
-
-app.get("/order", (req, res) => {
- res.sendFile(path.join(__dirname + '/public/assets/html/order.html'));
-});
-
-app.get("/gallery", (req, res) => {
- res.sendFile(path.join(__dirname + '/public/assets/html/gallery.html'));
-});
+// app.get("/collect", (req, res) => {
+//  res.sendFile(path.join(__dirname + '/public/assets/html/collect.html'));
+// });
+//
+// app.get("/crop", (req, res) => {
+//  res.sendFile(path.join(__dirname + '/public/assets/html/crop.html'));
+// });
+//
+// app.get("/order", (req, res) => {
+//  res.sendFile(path.join(__dirname + '/public/assets/html/order.html'));
+// });
+//
+// app.get("/gallery", (req, res) => {
+//  res.sendFile(path.join(__dirname + '/public/assets/html/gallery.html'));
+// });
 
 app.get("/create", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/create.html'));
 });
 
-app.get('/db', async (req, res) => {
-  try {
-    const client = await pool.connect()
-    const result = await client.query('SELECT * FROM orders');
-    const results = { 'results': (result) ? result.rows : null};
-    res.json(results);
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
-})
+// For testing database connection
 
-
-
-app.get("/testdb/:str", async (req, res) => {
-
-  // async/await
-  try {
-    const client = await pool.connect()
-    const str = req.params.str
-    const text = 'INSERT INTO public.test_table(test_string) VALUES($1) RETURNING *'
-    const values = [str]
-    const result = await client.query(text, values)
-    client.release();
-    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-  } catch (err) {
-    console.log(err.stack)
-  }
-
-
- res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
-});
+// app.get('/db', async (req, res) => {
+//   try {
+//     const client = await pool.connect()
+//     const result = await client.query('SELECT * FROM orders');
+//     const results = { 'results': (result) ? result.rows : null};
+//     res.json(results);
+//     client.release();
+//   } catch (err) {
+//     console.error(err);
+//     res.send("Error " + err);
+//   }
+// })
 
 app.post("/submit_order", async (req, res) => {
   // console.log(req)
@@ -232,8 +213,6 @@ app.post("/submit_order", async (req, res) => {
     console.log(err.stack)
     res.json(err);
   }
-
-
 });
 
 app.get("/check_order/:ext_order_id", async (req, res) => {

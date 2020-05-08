@@ -184,14 +184,16 @@
 
       <div id="new_album">
 
-          <h3>Get Started: Create cards from a photo album</h3>
+          <h3>Create your own cards</h3>
+          <h5>This site links with Google Photos. You will use a Google Photos album to collect and crop your images as you go through the process of creating your own set of cards.</h5>
           <ol class="get_started_list">
-            <li>Create an album with <a href="https://photos.google.com" target="_blank">Google Photos</a> and add at least one photo.
+            <li>Go to <a href="https://photos.google.com" target="_blank">Google Photos</a> to create an album.
               <a href="https://support.google.com/photos/answer/6128849?hl=en&co=GENIE.Platform%3DDesktop&oco=0" target="_blank">
                 <svg class="bi bi-question-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd"/>
                 </svg>
               </a>
+              You may add up to 12 photos, but it's fine to get started with just a few. There will be plenty of additional inspiration along the way.
             </li>
             <!-- <li>Add at least one image to the album.
               <a href="https://support.google.com/photos/answer/6128849?hl=en&co=GENIE.Platform%3DDesktop&oco=0#autoadd" target="_blank">
@@ -200,18 +202,21 @@
                 </svg>
               </a>
             </li> -->
-            <li>Get a sharing link (<i class="fa fa-share-alt" aria-hidden="true"></i>) and enter it here.
+            <li>Get a sharing link (<i class="fa fa-share-alt" aria-hidden="true"></i>) for the album
               <a href="https://support.google.com/photos/answer/6131416?hl=en&co=GENIE.Platform=Desktop#send_linkweb" target="_blank">
                 <svg class="bi bi-question-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd"/>
                 </svg>
               </a>
+              (don't just copy the address from the browser).  Enter it here to link the album to your set of cards.
             </li>
           </ol>
-          <input type="text" id="newAlbumLink"><br />
-          <a class="btn btn-success" id="newAlbum" href="javascript:void(0);">
-            Load Album
-          </a>
+          <div id="load_new_album">
+            <input type="text" id="newAlbumLink"><br />
+            <a class="btn btn-success" id="newAlbum" href="javascript:void(0);">
+              Link my album
+            </a>
+          </div>
       </div>
 
 
@@ -224,14 +229,78 @@
 
 
           <div class="instruction_text">
-            <h2>Personalize your <br />MOMENTS CARDS</h2>
+            <h2>MY MOMENTS</h2>
 
             <div id="collect_step">
-              <h5>Collect 12 images in <a id="your_album" target="_blank">your album</a> on Google Photos.</h5>
+              <h5>Go to <a id="your_album" target="_blank">your album</a> in Google Photos to add more images to your set. Don't worry if they don't look right; we're going to crop them to the perfect fit in the next step.</h5>
+
+              <!-- <ul class="checklist_sm"> -->
+              <ul class="">
+    						<li>Choose photos, art, inspiring text -- whatever speaks to you!</li>
+    						<li>Add directly from the <a href="https://photos.app.goo.gl/QWsU1knpjTjcr9Pb9" target="_blank">example album</a>.</li>
+    						<li>Browse
+    							<a href="https://unsplash.com/" target="_blank">Unsplash</a>,
+    							<a href="https://pinterest.com/" target="_blank">Pinterest</a>,
+    							<a href="https://google.com/images" target="_blank">Google Images</a>
+    						</li>
+    						<li>Design your own cards on Canva
+    							<a href="https://www.canva.com/design/DAD4N6d9LYM/zS8xxpP2AbOF7C7xRukabA/view?utm_content=DAD4N6d9LYM&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton&mode=preview" target="_blank">horizontal</a>,
+    							<a href="https://www.canva.com/design/DAD4N8LItJs/SGVjZQ2MEnEbhiA0p4bG3g/view?utm_content=DAD4N8LItJs&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton&mode=preview" target="_blank">vertical</a>
+    						</li>
+    						<li class="no_margin">Find images that help you feel</li>
+    						<div class="container">
+    							<div class="row">
+    								<div class="col text-center feelings">
+    									Awe
+    								</div>
+    								<div class="col text-center feelings">
+    									Serenity
+    								</div>
+    								<div class="col text-center feelings">
+    									Tenderness
+    								</div>
+    							</div>
+    							<div class="row">
+    								<div class="col text-center feelings">
+    									Love
+    								</div>
+    								<div class="col text-center feelings">
+    									Confident
+    								</div>
+    								<div class="col text-center feelings">
+    									Grounded
+    								</div>
+    							</div>
+    							<div class="row">
+    								<div class="col text-center feelings">
+    									Safety
+    								</div>
+    								<div class="col text-center feelings">
+    									Joy
+    								</div>
+    								<div class="col text-center feelings">
+    									Gratitude
+    								</div>
+    							</div>
+    							<div class="row">
+    								<div class="col text-center feelings">
+    									Connected
+    								</div>
+    								<div class="col text-center feelings">
+    									Amused
+    								</div>
+    								<div class="col text-center feelings">
+    									Energized
+    								</div>
+    							</div>
+    						</div>
+    					</ul>
+
             </div>
 
             <div id="crop_step">
-              <h5>Go to <a id="your_album" target="_blank">your album</a> in Google Photos and crop the images in to a 3:2 ratio (portrait or landscape).</h5>
+              <h5>Go to <a id="your_album2" target="_blank">your album</a> in Google Photos and crop the images in to a 3:2 ratio (portrait or landscape).</h5>
+              <br />
               <div class="needsCrop"><h5>The images that need to be cropped are outlined in red.</h5></div>
             </div>
 
