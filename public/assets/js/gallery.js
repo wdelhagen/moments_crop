@@ -1,6 +1,13 @@
 window.onload = function() {
     'use strict';
 
+    var clear = getUrlParameter('clear');
+
+    if (clear === 'true') {
+      document.cookie = "album=null";
+      location.reload();
+    }
+
     pageState = "collect";
     album = $("#gallery_album");
     $("#create").hide();
@@ -64,6 +71,13 @@ var backID = "";
 var icloudphoto;
 
 window.addEventListener('focus', pollAlbum);
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 
 // Check the album
 // Fired on the window getting focus
@@ -489,6 +503,10 @@ $("#is_gift").change(function() {
   }
 });
 
+$("#clearAlbum").click(function() {
+  document.cookie = "album=null";
+  location.reload();
+});
 
 $("#newAlbum").click(function() {
   var link = $("#newAlbumLink").val();

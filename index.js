@@ -213,16 +213,16 @@ app.post("/submit_order", async (req, res) => {
                     back_id,
                     now];
     const result = await client.query(text, values)
-    res.json(result.rows[0]);
+    // res.json(result.rows[0]);
+    res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
     client.release();
-    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+    // Email them!
   } catch (err) {
     console.log(err.stack)
     res.json(err);
   }
 
-  // Send response (and email them)
-  // res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
+
 });
 
 app.get("/check_order/:ext_order_id", async (req, res) => {
