@@ -1,12 +1,21 @@
 window.onload = function() {
     'use strict';
 
-    var clear = getUrlParameter('clear');
+    const clear = getUrlParameter('clear');
 
     if (clear === 'true') {
       document.cookie = "album=null";
       location.assign("/create");
     }
+
+    const album_param = getUrlParameter('album');
+
+    if (album_param.length > 0) {
+      document.cookie = `album=${album_param}`;
+      location.assign("/create");
+    }
+
+    // create?album=https%3A%2F%2Fphotos.app.goo.gl%2FWaVnwZaDSJCt4uqN6
 
     pageState = "collect";
     album = $("#gallery_album");
