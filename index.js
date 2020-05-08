@@ -13,6 +13,8 @@ const { Pool } = require('pg');
 
 const Mailgun = require('mailgun-js');
 
+const ENV = process.env.NODE_ENV
+
 // //Your api key, from Mailgun’s Control Panel
 // var api_key = 'MAILGUN-API-KEY';
 //
@@ -33,7 +35,7 @@ console.log(`DB connection string: "${process.env.DATABASE_URL}"`)
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: (process.env.IS_LOCAL) ? false : { rejectUnauthorized: false },
+  ssl: (ENV === 'DEV') ? false : { rejectUnauthorized: false },
 });
 
  // iCloud shared album https://www.icloud.com/sharedalbum/#B0q5oqs3q79j4q
@@ -110,9 +112,9 @@ app.use(function(req, res, next) {
  * Routes Definitions
  */
 
- app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/assets/html/index.html'));
- });
+app.get("/", (req, res) => {
+res.sendFile(path.join(__dirname + '/public/assets/html/index.html'));
+});
 
 app.get("/cropper", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/cropper.html'));
@@ -140,18 +142,21 @@ app.get("/create", (req, res) => {
 
 // For testing database connection
 
-// app.get('/db', async (req, res) => {
-//   try {
-//     const client = await pool.connect()
-//     const result = await client.query('SELECT * FROM orders');
-//     const results = { 'results': (result) ? result.rows : null};
-//     res.json(results);
-//     client.release();
-//   } catch (err) {
-//     console.error(err);
-//     res.send("Error " + err);
-//   }
-// })
+if (ENV === 'DEV') {
+  app.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect()
+      const result = await client.query('SELECT * FROM orders');
+      const results = { 'results': (result) ? result.rows : null};
+      res.json(results);
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
+}
+
 
 app.post("/submit_order", async (req, res) => {
   // console.log(req)
