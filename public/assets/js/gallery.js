@@ -5,7 +5,7 @@ window.onload = function() {
 
     if (clear === 'true') {
       document.cookie = "album=null";
-      location.reload();
+      location.assign("/create");
     }
 
     pageState = "collect";
