@@ -144,18 +144,13 @@ app.get('/db', async (req, res) => {
 
 app.get("/testdb/:str", async (req, res) => {
 
-  const client = await pool.connect()
-
-  var str = req.params.str
-  console.log(`str = ${str}`);
-
-  const text = 'INSERT INTO public.test_table(test_string) VALUES($1) RETURNING *'
-  const values = [str]
-
   // async/await
   try {
+    const client = await pool.connect()
+    const str = req.params.str
+    const text = 'INSERT INTO public.test_table(test_string) VALUES($1) RETURNING *'
+    const values = [str]
     const result = await client.query(text, values)
-    console.log(result.rows[0])
     client.release();
     // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
   } catch (err) {
@@ -168,46 +163,56 @@ app.get("/testdb/:str", async (req, res) => {
 
 app.post("/submit_order", async (req, res) => {
   // console.log(req)
-
-  const client = await pool.connect()
-
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const email = req.body.email;
-  const is_gift = req.body.is_gift || false;
-  const gift_recipient = req.body.gift_recipient;
-  const address = req.body.address;
-  const address2 = req.body.address2;
-  const city = req.body.city;
-  const state = req.body.state;
-  const zip = req.body.zip;
-  const notes = req.body.notes;
-  const album_link = req.body.album_link;
-  const back_id = req.body.back_id;
-  const now = new Date();
-
-  const text = `INSERT INTO public.orders (
-                  first_name,
-                  last_name,
-                  email,
-                  is_gift,
-                  gift_recipient,
-                  ship_address,
-                  ship_address2,
-                  ship_city,
-                  ship_state,
-                  ship_zip,
-                  notes,
-                  album_link,
-                  back_id,
-                  created_on)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
-  const values = [firstName, lastName, email, is_gift, gift_recipient, address, address2, city, state, zip, notes, album_link, back_id, now];
-
   // async/await
   try {
+    const client = await pool.connect()
+
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const is_gift = req.body.is_gift || false;
+    const gift_recipient = req.body.gift_recipient;
+    const address = req.body.address;
+    const address2 = req.body.address2;
+    const city = req.body.city;
+    const state = req.body.state;
+    const zip = req.body.zip;
+    const notes = req.body.notes;
+    const album_link = req.body.album_link;
+    const back_id = req.body.back_id;
+    const now = new Date();
+
+    const text = `INSERT INTO public.orders (
+                    first_name,
+                    last_name,
+                    email,
+                    is_gift,
+                    gift_recipient,
+                    ship_address,
+                    ship_address2,
+                    ship_city,
+                    ship_state,
+                    ship_zip,
+                    notes,
+                    album_link,
+                    back_id,
+                    created_on)
+                  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
+    const values = [firstName,
+                    lastName,
+                    email,
+                    is_gift,
+                    gift_recipient,
+                    address,
+                    address2,
+                    city,
+                    state,
+                    zip,
+                    notes,
+                    album_link,
+                    back_id,
+                    now];
     const result = await client.query(text, values)
-    // console.log(result.rows[0])
     res.json(result.rows[0]);
     client.release();
     // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
@@ -221,19 +226,16 @@ app.post("/submit_order", async (req, res) => {
 });
 
 app.get("/check_order/:ext_order_id", async (req, res) => {
-
-  var ext_order_id = req.params.ext_order_id
-  console.log(`ext_order_id = ${ext_order_id}`);
-
-  const text = 'SELECT * FROM public.orders WHERE ext_order_id=$1;'
-  const values = [ext_order_id]
-
   // async/await
   try {
+    const client = await pool.connect()
+    var ext_order_id = req.params.ext_order_id
+    const text = 'SELECT * FROM public.orders WHERE ext_order_id=$1;'
+    const values = [ext_order_id];
     const result = await client.query(text, values)
     // console.log(result.rows[0])
     res.json(result.rows[0]);
-    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+    client.release();
   } catch (err) {
     console.log(err.stack)
   }
