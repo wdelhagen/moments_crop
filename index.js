@@ -11,6 +11,17 @@ const axios = require('axios');
 
 const { Pool } = require('pg');
 
+const Mailgun = require('mailgun-js');
+
+// //Your api key, from Mailgun’s Control Panel
+// var api_key = 'MAILGUN-API-KEY';
+//
+// //Your domain, from the Mailgun Control Panel
+// var domain = 'YOUR-DOMAIN.com';
+//
+// //Your sending email address
+// var from_who = 'will@moments.cards';
+
 // iCloud albums
 var rp = require('request-promise-native');
 var config = require('config');

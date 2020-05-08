@@ -374,9 +374,9 @@ li {
 }
 
 /* HOVER FLIP */
-.card_container:hover .card_frame.animate {
+/* .card_container:hover .card_frame.animate {
 	animation: hoverFlip 0.75s forwards linear;
-}
+} */
 
 .card_frame.flip {
 	animation: cardFlip 1.5s forwards linear;

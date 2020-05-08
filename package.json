@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "kind-of": ">=6.0.3",
     "lodash.chunk": "^4.2.0",
+    "mailgun-js": "^0.22.0",
     "minimist": ">=1.2.2",
     "pg": "^8.0.3",
     "promise-queue": "^2.2.5",
