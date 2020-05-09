@@ -93,7 +93,8 @@ fabric.properties
 # User-specific stuff
 scratch
 postgres.sql
-
+tmp
+working
 
 # Generated files
 
