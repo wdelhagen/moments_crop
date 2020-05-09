@@ -178,58 +178,6 @@ app.get("/cropper", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/cropper.html'));
 });
 
-app.get("/gmail", async (req, res) => {
-
-  const test_order_id = '12423-4576567-46574'
-  const firstName = 'Will'
-
-  const subject = '🤘 MOMENTS Confirmation 🤘';
-  const to_name = 'Willy D';
-  const to_email = 'delhagen@gmail.com'
-  const body = `
-  Hi ${firstName}! <br /><br />
-
-  Thanks for creating a set of MOMENTS cards. \r\n
-
-  Whether they are for yourself or a gift, I hope they help connect to joy, peace and wonder.<br /><br /> \n\n
-
-  Here's your order id for reference: ${test_order_id}\n\n
-
-  With love,\n\n
-
-  Will`
-
-
-  result = await sendEmail(to_name, to_email, subject, body);
-
-  res.send(result.data);
-});
-
-
-
-app.get("/email/:subject", (req, res) => {
-  var subject = req.params.subject;
-
-  var from_email = new helper.Email(email_address);
-  var to_email = new helper.Email('delhagen@gmail.com');
-  var content = new helper.Content('text/plain', 'Hello, Email!');
-  var mail = new helper.Mail(from_email, subject, to_email, content);
-
-  var request = sg.emptyRequest({
-    method: 'POST',
-    path: '/v3/mail/send',
-    body: mail.toJSON(),
-  });
-
-  sg.API(request, function(error, response) {
-    console.log(response.statusCode);
-    console.log(response.body);
-    console.log(response.headers);
-  });
-
-  res.sendFile(path.join(__dirname + '/public/assets/html/index.html'));
-});
-
 app.get("/create", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/create.html'));
 });
@@ -304,12 +252,32 @@ app.post("/submit_order", async (req, res) => {
                     back_id,
                     now];
     const result = await client.query(text, values)
-    // res.json(result.rows[0]);
-    res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
+    var ext_order_id = result.rows[0].ext_order_id;
     client.release();
-    // Email them!
+
+    const subject = '✨ MOMENTS Confirmation ✨';
+    const to_name = `${firstName} ${lastName}`;
+    const body = `
+    Hi ${firstName}! <br /><br />
+
+    Thanks for creating a set of MOMENTS cards. <br /><br />
+
+    Your cards will be made from this <a href="${album_link}">album</a>. <br /> <br />
+
+    I hope they help you or someone you love connect to a sense of joy, peace and wonder.<br /><br />
+
+    Here's your order id for reference: ${ext_order_id}<br /><br />
+
+    💛,<br /><br />
+
+    Will`
+
+    email_result = await sendEmail(to_name, email, subject, body);
+
+    res.sendFile(path.join(__dirname + '/public/assets/html/success.html'));
   } catch (err) {
     console.log(err.stack)
+    // handle error response
     res.json(err);
   }
 });
