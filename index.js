@@ -11,27 +11,49 @@ const axios = require('axios');
 
 const { Pool } = require('pg');
 
-const Mailgun = require('mailgun-js');
+const {google} = require('googleapis');
+const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
 
-const ENV = process.env.NODE_ENV
+const oAuth2Client = new google.auth.OAuth2(
+      process.env.GOOGLE_OAUTH_CLIENT_ID,
+      process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      process.env.GOOGLE_OAUTH_REDIRECT_URL
+    );
 
-// //Your api key, from Mailgun’s Control Panel
-// var api_key = 'MAILGUN-API-KEY';
+const oauth_token={
+  access_token:'',
+  refresh_token:process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+  scope:"https://www.googleapis.com/auth/gmail.send",
+  token_type:"Bearer",
+  expiry_date:''
+}
+
+oAuth2Client.setCredentials(oauth_token);
+
+// oAuth2Client.getToken(process.env.GOOGLE_OAUTH_CODE, (err, token) => {
+//   if (err) return console.error('Error retrieving access token', err);
+//   oAuth2Client.setCredentials(token);
+//   // Store the token to disk for later program executions
+//   console.log(JSON.stringify(token))
+// });
+
+const gmail = google.gmail({version: 'v1', auth: oAuth2Client});
+
+// const authUrl = oAuth2Client.generateAuthUrl({
+//   access_type: 'offline',
+//   scope: SCOPES,
+//   prompt: 'consent'
+// });
 //
-// //Your domain, from the Mailgun Control Panel
-// var domain = 'YOUR-DOMAIN.com';
-//
-// //Your sending email address
-// var from_who = 'will@moments.cards';
+// console.log(`auth_url=${authUrl}`);
+
+const ENV = process.env.NODE_ENV;
 
 // iCloud albums
 var rp = require('request-promise-native');
-var config = require('config');
-var request_lib = require('request');
-var Queue = require('promise-queue');
 var _chunk = require('lodash.chunk');
 
-console.log(`DB connection string: "${process.env.DATABASE_URL}"`)
+// console.log(`DB connection string: "${process.env.DATABASE_URL}"`)
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -45,6 +67,7 @@ const regex = /\["(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/g
 // const regex_photo = /(https:\/\/photos\.google\.com\/share\/.*\/key=[a-zA-Z0-9\-_]*)/g
 const regex_google = /https:\/\/photos\.app\.goo\.gl\//g
 const regex_icloud = /https:\/\/www\.icloud\.com\/sharedalbum\//g
+
 
 function extractPhotos(content) {
  const links = new Set()
@@ -108,6 +131,41 @@ app.use(function(req, res, next) {
 // app.set("views", path.join(__dirname, "views"));
 // app.set("view engine", "pug");
 
+async function sendEmail(to_name, to_email, subject, body) {
+  // You can use UTF-8 encoding for the subject using the method below.
+  // You can also just use a plain string if you don't need anything fancy.
+  // const subject = '🤘 Hello 🤘';
+  const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+  const messageParts = [
+    'From: Will DelHagen <will@moments.cards>',
+    `To: ${to_name} <${to_email}>`,
+    'Content-Type: text/html; charset=utf-8',
+    'MIME-Version: 1.0',
+    `Subject: ${utf8Subject}`,
+    '',
+    `${body}`,
+  ];
+  const message = messageParts.join('\n');
+
+  // The body needs to be base64url encoded.
+  const encodedMessage = Buffer.from(message)
+    .toString('base64')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  const result = await gmail.users.messages.send({
+    userId: 'me',
+    requestBody: {
+      raw: encodedMessage,
+    },
+  });
+
+  console.log(result);
+
+  return result;
+}
+
 /**
  * Routes Definitions
  */
@@ -120,21 +178,57 @@ app.get("/cropper", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/cropper.html'));
 });
 
-// app.get("/collect", (req, res) => {
-//  res.sendFile(path.join(__dirname + '/public/assets/html/collect.html'));
-// });
-//
-// app.get("/crop", (req, res) => {
-//  res.sendFile(path.join(__dirname + '/public/assets/html/crop.html'));
-// });
-//
-// app.get("/order", (req, res) => {
-//  res.sendFile(path.join(__dirname + '/public/assets/html/order.html'));
-// });
-//
-// app.get("/gallery", (req, res) => {
-//  res.sendFile(path.join(__dirname + '/public/assets/html/gallery.html'));
-// });
+app.get("/gmail", async (req, res) => {
+
+  const test_order_id = '12423-4576567-46574'
+  const firstName = 'Will'
+
+  const subject = '🤘 MOMENTS Confirmation 🤘';
+  const to_name = 'Willy D';
+  const to_email = 'delhagen@gmail.com'
+  const body = `
+  Hi ${firstName}! <br /><br />
+
+  Thanks for creating a set of MOMENTS cards. \r\n
+
+  Whether they are for yourself or a gift, I hope they help connect to joy, peace and wonder.<br /><br /> \n\n
+
+  Here's your order id for reference: ${test_order_id}\n\n
+
+  With love,\n\n
+
+  Will`
+
+
+  result = await sendEmail(to_name, to_email, subject, body);
+
+  res.send(result.data);
+});
+
+
+
+app.get("/email/:subject", (req, res) => {
+  var subject = req.params.subject;
+
+  var from_email = new helper.Email(email_address);
+  var to_email = new helper.Email('delhagen@gmail.com');
+  var content = new helper.Content('text/plain', 'Hello, Email!');
+  var mail = new helper.Mail(from_email, subject, to_email, content);
+
+  var request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON(),
+  });
+
+  sg.API(request, function(error, response) {
+    console.log(response.statusCode);
+    console.log(response.body);
+    console.log(response.headers);
+  });
+
+  res.sendFile(path.join(__dirname + '/public/assets/html/index.html'));
+});
 
 app.get("/create", (req, res) => {
  res.sendFile(path.join(__dirname + '/public/assets/html/create.html'));
@@ -241,7 +335,6 @@ app.get("/check_order/:ext_order_id", async (req, res) => {
 app.get('/icloudalbum/:id', async function(request, response) {
 
   var baseUrl = getBaseUrl(request.params.id);
-  var queue = new Queue(1, Infinity);
   const links = new Set();
 
   getPhotoMetadata(baseUrl).then(function(metadata) {
